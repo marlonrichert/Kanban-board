@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.vaadin.kanban</groupId>
-	<artifactId>Kanban</artifactId>
-	<packaging>war</packaging>
-	<version>0.1.0.BUILD-SNAPSHOT</version>
-	<name>Kanban</name>
-	<properties>
-		<roo.version>1.1.2.RELEASE</roo.version>
-		<spring.version>3.0.5.RELEASE</spring.version>
-		<aspectj.version>1.6.11.M2</aspectj.version>
-		<slf4j.version>1.6.1</slf4j.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	<repositories>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.vaadin.kanban</groupId>
+    <artifactId>Kanban</artifactId>
+    <packaging>war</packaging>
+    <version>0.1.0.BUILD-SNAPSHOT</version>
+    <name>Kanban</name>
+    <properties>
+        <roo.version>1.1.2.RELEASE</roo.version>
+        <spring.version>3.0.5.RELEASE</spring.version>
+        <aspectj.version>1.6.11.M2</aspectj.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <repositories>
         <repository>
             <id>spring-maven-release</id>
             <name>Spring Maven Release Repository</name>
@@ -29,7 +30,7 @@
             <name>Spring Roo Repository</name>
             <url>http://spring-roo-repository.springsource.org/release</url>
         </repository>
-	<repository>
+        <repository>
             <id>EclipseLink Repo</id>
             <url>http://mirrors.ibiblio.org/pub/mirrors/eclipse/rt/eclipselink/maven.repo</url>
             <name>EclipseLink Repo</name>
@@ -39,7 +40,7 @@
             <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
             <name>JBoss Repo</name>
         </repository>
-    <repository>
+        <repository>
             <id>vaadin-snapshots</id>
             <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
             <name>Vaadin snapshot repository</name>
@@ -66,7 +67,7 @@
             <url>http://spring-roo-repository.springsource.org/release</url>
         </pluginRepository>
     </pluginRepositories>
-	<dependencies>
+    <dependencies>
         <!-- General dependencies for standard applications -->
         <dependency>
             <groupId>junit</groupId>
@@ -166,7 +167,7 @@
             <artifactId>spring-tx</artifactId>
             <version>${spring.version}</version>
         </dependency>
-    <dependency>
+        <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>1.8.0.10</version>
@@ -259,7 +260,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-    <dependency>
+        <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin</artifactId>
             <version>6.5.3</version>
@@ -290,12 +291,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-    <dependency>
+        <dependency>
             <groupId>com.vaadin.addon</groupId>
             <artifactId>beanvalidation-addon</artifactId>
             <version>0.6.1</version>
         </dependency>
-    <dependency>
+        <dependency>
             <groupId>com.vaadin.addon</groupId>
             <artifactId>jpacontainer-addon</artifactId>
             <version>1.0.4</version>
@@ -307,15 +308,13 @@
             </exclusions>
         </dependency>
     </dependencies>
-	<build>
-		<plugins>
+    <build>
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1-beta-1</version>
-                <!--
-					<configuration> <webXml>target/web.xml</webXml> </configuration>
-				-->
+                <!-- <configuration> <webXml>target/web.xml</webXml> </configuration> -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -332,7 +331,8 @@
                 <artifactId>aspectj-maven-plugin</artifactId>
                 <version>1.0</version>
                 <dependencies>
-                    <!-- NB: You must use Maven 2.0.9 or above or these are ignored (see MNG-2972) -->
+                    <!-- NB: You must use Maven 2.0.9 or above or these are ignored 
+                        (see MNG-2972) -->
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjrt</artifactId>
@@ -403,7 +403,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>
                 <version>2.7</version>
-                <!--  Note 2.8 does not work with AspectJ aspect path -->
+                <!-- Note 2.8 does not work with AspectJ aspect path -->
                 <configuration>
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>false</downloadJavadocs>
@@ -451,5 +451,5 @@
                 </configuration>
             </plugin>
         </plugins>
-	</build>
+    </build>
 </project>
