@@ -1,0 +1,10 @@
+@import url(../reindeer/styles.css);
+
+/* Default entity manager and entity view styles */
+@import url(entityviews/entitymanagerview.css);
+@import url(entityviews/entityviews.css);
+
+/* Main application background */
+.v-app {
+	background: white;
+	}

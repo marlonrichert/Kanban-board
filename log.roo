@@ -1,0 +1,35 @@
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-08 11:13:31
+project --topLevelPackage org.vaadin.kanban --projectName Kanban --java 6
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-08 11:13:31
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-08 11:13:35
+osgi install --url https://oss.sonatype.org/content/repositories/vaadin-snapshots/com/vaadin/com.vaadin.spring.roo.addon/0.9.2.BUILD-SNAPSHOT/com.vaadin.spring.roo.addon-0.9.2.BUILD-20110325.114657-1.jar
+
+osgi start --url https://oss.sonatype.org/content/repositories/vaadin-snapshots/com/vaadin/com.vaadin.spring.roo.addon/0.9.2.BUILD-SNAPSHOT/com.vaadin.spring.roo.addon-0.9.2.BUILD-20110325.114657-1.jar
+
+persistence setup --provider ECLIPSELINK --database HYPERSONIC_PERSISTENT
+
+entity --class ~.domain.StateColumn --testAutomatically
+
+field string --fieldName name --notNull --permitReservedWords --unique 
+
+field number --fieldName workInProgressLimit --type int --min 0 --primitive
+
+field string --fieldName definitionOfDone --notNull --permitReservedWords
+
+entity --class ~.domain.Card --testAutomatically
+
+field string --fieldName description --notNull --permitReservedWords --sizeMin 2 --unique 
+field reference --fieldName stateColumn --type ~.domain.StateColumn
+field string --fieldName owner --notNull
+help field date
+field date --fieldName startDate --type java.util.Date
+field date --fieldName endDate --type java.util.Date
+finder add --finderName findCardsByStateColumn
+perform tests 
+perform clean 
+perform assembly 
+hint perform eclipse
+hint eclipse
+perform package 
+vaadin setup --applicationPackage ~.web --baseName Kanban --themeName kanban --useJpaContainer true
+vaadin generate all --package ~.web.ui --visuallyComposable false
