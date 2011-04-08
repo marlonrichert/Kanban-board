@@ -11,7 +11,6 @@ import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
 
 public class KanbanBoard extends CustomComponent implements Navigator.View {
 
@@ -61,21 +60,20 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
         }
         grid.setColumns(columns.size());
         grid.setRows(3);
-        for (int i = 0; i < columns.size(); ++i) {
-            StateColumn stateColumn = columns.get(i);
-            grid.addComponent(new Label(stateColumn.getName()), i, 0);
+        for (StateColumn stateColumn : columns) {
+            int sortOrder = stateColumn.getSortOrder();
+            grid.addComponent(new Label(stateColumn.getName()), sortOrder, 0);
 
-            VerticalLayout layout = new VerticalLayout();
-            layout.setSizeFull();
+            KanbanColumn column = new KanbanColumn(stateColumn);
+            grid.addComponent(column, sortOrder, 1);
             for (Card card : Card.findCardsByStateColumn(stateColumn)
                     .getResultList()) {
-                layout.addComponent(new Label(card.getDescription()));
+                column.addComponent(new KanbanCard(card));
             }
 
-            grid.addComponent(layout, i, 1);
             grid.addComponent(
                     new Label("Definition of done "
-                            + stateColumn.getDefinitionOfDone()), i, 2);
+                            + stateColumn.getDefinitionOfDone()), sortOrder, 2);
         }
     }
 

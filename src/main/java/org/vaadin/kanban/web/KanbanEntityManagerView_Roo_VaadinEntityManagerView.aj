@@ -7,8 +7,8 @@ import java.lang.Class;
 import java.lang.String;
 import java.util.Map;
 import java.util.TreeMap;
-import org.vaadin.kanban.web.ui.CardView;
-import org.vaadin.kanban.web.ui.StateColumnView;
+import org.vaadin.kanban.web.crud.CardView;
+import org.vaadin.kanban.web.crud.StateColumnView;
 
 privileged aspect KanbanEntityManagerView_Roo_VaadinEntityManagerView {
     

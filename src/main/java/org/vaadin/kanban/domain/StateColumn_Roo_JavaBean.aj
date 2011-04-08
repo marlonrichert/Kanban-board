@@ -31,4 +31,12 @@ privileged aspect StateColumn_Roo_JavaBean {
         this.definitionOfDone = definitionOfDone;
     }
     
+    public int StateColumn.getSortOrder() {
+        return this.sortOrder;
+    }
+    
+    public void StateColumn.setSortOrder(int sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+    
 }

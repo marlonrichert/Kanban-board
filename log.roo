@@ -5,14 +5,15 @@ osgi start --url https://oss.sonatype.org/content/repositories/vaadin-snapshots/
 persistence setup --provider ECLIPSELINK --database HYPERSONIC_PERSISTENT
 
 entity --class ~.domain.StateColumn --testAutomatically
-field string --fieldName name --notNull --permitReservedWords --unique 
+field string --fieldName name --notNull --permitReservedWords --sizeMin 2 --unique 
 field number --fieldName workInProgressLimit --type int --min 0 --primitive
-field string --fieldName definitionOfDone --notNull --permitReservedWords
+field string --fieldName definitionOfDone --permitReservedWords
+field number --fieldName sortOrder --type int --min 0 --notNull --unique
 
 entity --class ~.domain.Card --testAutomatically
 field string --fieldName description --notNull --permitReservedWords --sizeMin 2 --unique 
 field reference --fieldName stateColumn --type ~.domain.StateColumn
-field string --fieldName owner --notNull
+field string --fieldName owner
 field date --fieldName startDate --type java.util.Date
 field date --fieldName endDate --type java.util.Date
 finder add --finderName findCardsByStateColumn
@@ -23,8 +24,10 @@ perform assembly
 perform package 
 
 vaadin setup --applicationPackage ~.web --baseName Kanban --themeName kanban --useJpaContainer true
-vaadin generate all --package ~.web.ui --visuallyComposable false
+vaadin generate all --package ~.web.crud --visuallyComposable false
 perform clean
+help perform
 perform assembly
 perform package
-// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-08 13:09:08
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-08 15:34:29
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-08 16:00:24

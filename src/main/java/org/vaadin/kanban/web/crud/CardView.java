@@ -1,18 +1,16 @@
-package org.vaadin.kanban.web.ui;
+package org.vaadin.kanban.web.crud;
 
 import org.vaadin.kanban.web.AbstractEntityView;
 import org.vaadin.kanban.web.EntityEditor;
-
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
 
-@RooVaadinEntityView(formBackingObject = org.vaadin.kanban.domain.StateColumn.class)
-public class StateColumnView extends
-        AbstractEntityView<org.vaadin.kanban.domain.StateColumn> {
+@RooVaadinEntityView(formBackingObject = org.vaadin.kanban.domain.Card.class)
+public class CardView extends AbstractEntityView<org.vaadin.kanban.domain.Card> {
 
     @Override
     protected EntityEditor createForm() {
-        return new StateColumnForm();
+        return new CardForm();
     }
 
     @Override
