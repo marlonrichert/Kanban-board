@@ -38,3 +38,7 @@ perform package
 perform clean
 perform package 
 // Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-11 12:41:08
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-11 16:08:09
+// [failed] entity --class ~.domain.StateColumn --testAutomatically
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-11 16:34:01
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-11 17:01:18

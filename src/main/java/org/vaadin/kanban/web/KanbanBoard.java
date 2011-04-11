@@ -54,19 +54,24 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
 
     @Override
     public void navigateTo(String requestedDataId) {
-        List<StateColumn> columns = StateColumn.findAllStateColumns();
+        update();
+    }
+
+    void update() {
+        List<StateColumn> stateColumns = StateColumn.findAllStateColumns();
 
         grid.removeAllComponents();
-        if (columns.size() < 1) {
+        if (stateColumns.size() < 1) {
             return;
         }
-        grid.setColumns(columns.size());
+        grid.setColumns(stateColumns.size());
         grid.setRows(3);
         grid.setRowExpandRatio(0, 0);
         grid.setRowExpandRatio(1, 2);
         grid.setRowExpandRatio(2, 0);
-        for (StateColumn stateColumn : columns) {
+        for (StateColumn stateColumn : stateColumns) {
             int sortOrder = stateColumn.getSortOrder();
+            grid.setColumnExpandRatio(sortOrder, 1);
 
             VerticalLayout header = new VerticalLayout();
             header.setSizeUndefined();
@@ -79,7 +84,8 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
             name.setWidth(100, UNITS_PERCENTAGE);
             header.addComponent(name);
 
-            Label wip = new Label("" + stateColumn.getWorkInProgressLimit(),
+            int wipLimit = stateColumn.getWorkInProgressLimit();
+            Label wip = new Label("" + (wipLimit > 0 ? wipLimit : ""),
                     Label.CONTENT_XHTML);
             wip.setStyleName("wip");
             wip.setSizeUndefined();
@@ -88,7 +94,8 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
 
             grid.addComponent(header, sortOrder, 0);
 
-            KanbanColumn column = new KanbanColumn(stateColumn);
+            KanbanColumn column = new KanbanColumn(this, stateColumn);
+
             grid.addComponent(column, sortOrder, 1);
             for (Card card : Card.findCardsByStateColumn(stateColumn)
                     .getResultList()) {

@@ -27,7 +27,6 @@ public class Card {
     @ManyToOne
     private StateColumn stateColumn;
 
-    @NotNull
     private String owner = "";
 
     @Temporal(TemporalType.TIMESTAMP)

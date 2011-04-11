@@ -11,19 +11,25 @@ import com.vaadin.ui.VerticalLayout;
 public class KanbanCard extends DragAndDropWrapper implements
         LayoutClickListener {
 
-    public KanbanCard(Card card) {
+    private Card model;
+
+    public KanbanCard(Card model) {
         super(new VerticalLayout());
+        this.model = model;
         setDragStartMode(DragStartMode.WRAPPER);
+        setStyleName("card");
 
         VerticalLayout root = (VerticalLayout) getCompositionRoot();
-        root.setSizeFull();
-        root.addComponent(new Label(card.getDescription()));
+        root.addComponent(new Label(model.getDescription()));
+        root.addListener(this);
     }
 
     @Override
     public void layoutClick(LayoutClickEvent event) {
         // TODO Auto-generated method stub
-
     }
 
+    public Card getModel() {
+        return model;
+    }
 }

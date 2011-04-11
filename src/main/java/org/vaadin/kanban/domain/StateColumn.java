@@ -22,7 +22,6 @@ public class StateColumn {
     @Min(0L)
     private int workInProgressLimit = 0;
 
-    @NotNull
     private String definitionOfDone = "";
 
     @NotNull

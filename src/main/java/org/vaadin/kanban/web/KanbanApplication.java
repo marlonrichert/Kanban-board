@@ -27,7 +27,7 @@ public class KanbanApplication extends Application {
 
             StateColumn analysis = new StateColumn();
             analysis.setSortOrder(index++);
-            analysis.setName("Analyze");
+            analysis.setName("Analysis");
             analysis.setWorkInProgressLimit(3);
             analysis.setDefinitionOfDone("<ul>" + "<li>Goal is clear</li>"
                     + "<li>First tasks defined</li>"
