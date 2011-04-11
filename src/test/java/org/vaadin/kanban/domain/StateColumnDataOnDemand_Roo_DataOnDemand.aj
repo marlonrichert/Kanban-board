@@ -19,12 +19,12 @@ privileged aspect StateColumnDataOnDemand_Roo_DataOnDemand {
     public StateColumn StateColumnDataOnDemand.getNewTransientStateColumn(int index) {
         org.vaadin.kanban.domain.StateColumn obj = new org.vaadin.kanban.domain.StateColumn();
         obj.setName("name_" + index);
-        java.lang.Integer workInProgressLimit = new Integer(index);
+        java.lang.Integer workInProgressLimit = 0;
         if (workInProgressLimit < 0) {
             workInProgressLimit = 0;
         }
         obj.setWorkInProgressLimit(workInProgressLimit);
-        obj.setDefinitionOfDone("definitionOfDone_" + index);
+        obj.setDefinitionOfDone("_" + index);
         java.lang.Integer sortOrder = new Integer(index);
         if (sortOrder < 0) {
             sortOrder = 0;

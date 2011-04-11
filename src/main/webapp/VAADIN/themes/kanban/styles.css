@@ -10,6 +10,35 @@
     background: white;
 }
 
-.v-label {
+.board .v-label {
     text-align: center;
+}
+
+.board .v-label.dod {
+    text-align: left;
+}
+
+.board .header {
+    width: 100%;
+}
+
+.dod {
+    overflow: auto;
+}
+
+.dod ul {
+    margin: 0;
+    padding: 0;
+    padding-left: 1.38em;
+}
+
+.board,.board div {
+    margin: 0;
+    padding: 0;
+/*     width: 100%; */
+}
+
+.board>div>div>div {
+    border: 1px solid black;
+    border-radius: 0;
 }

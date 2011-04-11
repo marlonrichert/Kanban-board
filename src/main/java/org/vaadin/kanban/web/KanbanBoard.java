@@ -11,6 +11,7 @@ import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.VerticalLayout;
 
 public class KanbanBoard extends CustomComponent implements Navigator.View {
 
@@ -36,6 +37,7 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
         setHeight("100.0%");
 
         grid = new GridLayout();
+        grid.setStyleName("board");
         grid.setSizeFull();
         grid.setImmediate(true);
         grid.setMargin(true);
@@ -60,9 +62,31 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
         }
         grid.setColumns(columns.size());
         grid.setRows(3);
+        grid.setRowExpandRatio(0, 0);
+        grid.setRowExpandRatio(1, 2);
+        grid.setRowExpandRatio(2, 0);
         for (StateColumn stateColumn : columns) {
             int sortOrder = stateColumn.getSortOrder();
-            grid.addComponent(new Label(stateColumn.getName()), sortOrder, 0);
+
+            VerticalLayout header = new VerticalLayout();
+            header.setSizeUndefined();
+            header.setWidth(100, UNITS_PERCENTAGE);
+
+            Label name = new Label("<h2>" + stateColumn.getName() + "</h2>",
+                    Label.CONTENT_XHTML);
+            name.setStyleName("header");
+            name.setSizeUndefined();
+            name.setWidth(100, UNITS_PERCENTAGE);
+            header.addComponent(name);
+
+            Label wip = new Label("" + stateColumn.getWorkInProgressLimit(),
+                    Label.CONTENT_XHTML);
+            wip.setStyleName("wip");
+            wip.setSizeUndefined();
+            wip.setWidth(100, UNITS_PERCENTAGE);
+            header.addComponent(wip);
+
+            grid.addComponent(header, sortOrder, 0);
 
             KanbanColumn column = new KanbanColumn(stateColumn);
             grid.addComponent(column, sortOrder, 1);
@@ -71,9 +95,11 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
                 column.addComponent(new KanbanCard(card));
             }
 
-            grid.addComponent(
-                    new Label("Definition of done "
-                            + stateColumn.getDefinitionOfDone()), sortOrder, 2);
+            Label dod = new Label("<b>Definition of done</b>"
+                    + stateColumn.getDefinitionOfDone(), Label.CONTENT_XHTML);
+            dod.setStyleName("dod");
+            dod.setSizeUndefined();
+            grid.addComponent(dod, sortOrder, 2);
         }
     }
 

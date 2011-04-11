@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -19,10 +20,10 @@ public class StateColumn {
     private String name;
 
     @Min(0L)
-    private int workInProgressLimit;
+    private int workInProgressLimit = 0;
 
     @NotNull
-    private String definitionOfDone;
+    private String definitionOfDone = "";
 
     @NotNull
     @Column(unique = true)

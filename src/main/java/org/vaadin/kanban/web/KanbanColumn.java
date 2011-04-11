@@ -20,6 +20,7 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
         this.column = column;
         root = (Layout) getCompositionRoot();
         root.setSizeFull();
+        setStyleName("column");
         setSizeFull();
     }
 
