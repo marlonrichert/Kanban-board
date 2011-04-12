@@ -5,20 +5,23 @@
 
 @import url(entityviews/entityviews.css);
 
-/* Main application background */
-.v-app {
+.v-app,.v-gridlayout-board>div>div>div {
     background: white;
 }
 
-.board,.board div {
-    margin: 0;
-    padding: 0;
-    /*     width: 100%; */
+.v-gridlayout-board .v-gridlayout-margin {
+    background-color: black;
 }
 
-.board>div>div>div {
-    border: 1px solid black;
-    border-radius: 0;
+.v-gridlayout-board>div>div>div {
+}
+
+.v-gridlayout-margin div {
+    overflow: visible !important;
+}
+
+.card {
+    background-color: yellow;
 }
 
 .v-label {
@@ -27,18 +30,6 @@
 
 .v-label.dod,.v-formlayout-captioncell {
     text-align: left;
-}
-
-.board .header {
-    width: 100%;
-}
-
-.card {
-    background-color: yellow;
-}
-
-.dod {
-    overflow: auto;
 }
 
 .dod ul {

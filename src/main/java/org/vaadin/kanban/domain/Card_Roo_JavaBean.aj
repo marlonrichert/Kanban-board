@@ -25,6 +25,14 @@ privileged aspect Card_Roo_JavaBean {
         this.stateColumn = stateColumn;
     }
     
+    public int Card.getSortOrder() {
+        return this.sortOrder;
+    }
+    
+    public void Card.setSortOrder(int sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+    
     public String Card.getOwner() {
         return this.owner;
     }

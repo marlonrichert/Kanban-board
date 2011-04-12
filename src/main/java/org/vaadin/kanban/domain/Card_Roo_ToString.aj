@@ -11,6 +11,7 @@ privileged aspect Card_Roo_ToString {
         StringBuilder sb = new StringBuilder();
         sb.append("Description: ").append(getDescription()).append(", ");
         sb.append("StateColumn: ").append(getStateColumn()).append(", ");
+        sb.append("SortOrder: ").append(getSortOrder()).append(", ");
         sb.append("Owner: ").append(getOwner()).append(", ");
         sb.append("StartDate: ").append(getStartDate()).append(", ");
         sb.append("EndDate: ").append(getEndDate());

@@ -23,20 +23,20 @@ privileged aspect StateColumn_Roo_JavaBean {
         this.workInProgressLimit = workInProgressLimit;
     }
     
-    public String StateColumn.getDefinitionOfDone() {
-        return this.definitionOfDone;
-    }
-    
-    public void StateColumn.setDefinitionOfDone(String definitionOfDone) {
-        this.definitionOfDone = definitionOfDone;
-    }
-    
     public int StateColumn.getSortOrder() {
         return this.sortOrder;
     }
     
     public void StateColumn.setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
+    }
+    
+    public String StateColumn.getDefinitionOfDone() {
+        return this.definitionOfDone;
+    }
+    
+    public void StateColumn.setDefinitionOfDone(String definitionOfDone) {
+        this.definitionOfDone = definitionOfDone;
     }
     
 }

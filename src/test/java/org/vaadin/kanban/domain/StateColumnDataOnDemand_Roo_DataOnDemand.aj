@@ -24,12 +24,12 @@ privileged aspect StateColumnDataOnDemand_Roo_DataOnDemand {
             workInProgressLimit = 0;
         }
         obj.setWorkInProgressLimit(workInProgressLimit);
-        obj.setDefinitionOfDone("_" + index);
         java.lang.Integer sortOrder = new Integer(index);
         if (sortOrder < 0) {
             sortOrder = 0;
         }
         obj.setSortOrder(sortOrder);
+        obj.setDefinitionOfDone("_" + index);
         return obj;
     }
     

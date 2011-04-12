@@ -11,8 +11,8 @@ privileged aspect StateColumn_Roo_ToString {
         StringBuilder sb = new StringBuilder();
         sb.append("Name: ").append(getName()).append(", ");
         sb.append("WorkInProgressLimit: ").append(getWorkInProgressLimit()).append(", ");
-        sb.append("DefinitionOfDone: ").append(getDefinitionOfDone()).append(", ");
-        sb.append("SortOrder: ").append(getSortOrder());
+        sb.append("SortOrder: ").append(getSortOrder()).append(", ");
+        sb.append("DefinitionOfDone: ").append(getDefinitionOfDone());
         return sb.toString();
     }
     

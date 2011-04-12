@@ -22,10 +22,10 @@ public class StateColumn {
     @Min(0L)
     private int workInProgressLimit = 0;
 
-    private String definitionOfDone = "";
-
     @NotNull
     @Column(unique = true)
     @Min(0L)
     private int sortOrder;
+
+    private String definitionOfDone = "";
 }

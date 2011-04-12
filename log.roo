@@ -16,6 +16,7 @@ field reference --fieldName stateColumn --type ~.domain.StateColumn
 field string --fieldName owner
 field date --fieldName startDate --type java.util.Date
 field date --fieldName endDate --type java.util.Date
+field number --fieldName sortOrder --type int --min 0 --notNull --primitive
 finder add --finderName findCardsByStateColumn
 
 perform tests 
@@ -26,19 +27,5 @@ perform package
 vaadin setup --applicationPackage ~.web --baseName Kanban --themeName kanban --useJpaContainer true
 vaadin generate all --package ~.web.crud --visuallyComposable false
 perform clean
-help perform
 perform assembly
 perform package
-// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-08 15:34:29
-// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-08 16:00:24
-// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-08 17:39:18
-// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-11 12:01:37
-// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-11 12:14:56
-// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-11 12:29:47
-perform clean
-perform package 
-// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-11 12:41:08
-// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-11 16:08:09
-// [failed] entity --class ~.domain.StateColumn --testAutomatically
-// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-11 16:34:01
-// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-11 17:01:18

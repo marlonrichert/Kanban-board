@@ -15,8 +15,8 @@ import com.vaadin.ui.VerticalLayout;
 
 public class KanbanBoard extends CustomComponent implements Navigator.View {
 
-    private AbsoluteLayout mainLayout;
     private GridLayout grid;
+    private AbsoluteLayout mainLayout;
 
     /**
      * The constructor should first build the main layout, set the composition
@@ -32,19 +32,22 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
     }
 
     private AbsoluteLayout buildMainLayout() {
-        mainLayout = new AbsoluteLayout();
         setWidth("100.0%");
         setHeight("100.0%");
-
         grid = new GridLayout();
         grid.setStyleName("board");
         grid.setSizeFull();
         grid.setImmediate(true);
-        grid.setMargin(true);
+        grid.setMargin(false);
         grid.setSpacing(true);
+        mainLayout = new AbsoluteLayout();
         mainLayout.addComponent(grid, "top:0.0px;left:0.0px;");
-
         return mainLayout;
+    }
+
+    @Override
+    public String getWarningForNavigatingFrom() {
+        return null;
     }
 
     @Override
@@ -70,19 +73,11 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
         grid.setRowExpandRatio(1, 2);
         grid.setRowExpandRatio(2, 0);
         for (StateColumn stateColumn : stateColumns) {
-            int sortOrder = stateColumn.getSortOrder();
-            grid.setColumnExpandRatio(sortOrder, 1);
-
-            VerticalLayout header = new VerticalLayout();
-            header.setSizeUndefined();
-            header.setWidth(100, UNITS_PERCENTAGE);
-
             Label name = new Label("<h2>" + stateColumn.getName() + "</h2>",
                     Label.CONTENT_XHTML);
             name.setStyleName("header");
             name.setSizeUndefined();
             name.setWidth(100, UNITS_PERCENTAGE);
-            header.addComponent(name);
 
             int wipLimit = stateColumn.getWorkInProgressLimit();
             Label wip = new Label("" + (wipLimit > 0 ? wipLimit : ""),
@@ -90,13 +85,14 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
             wip.setStyleName("wip");
             wip.setSizeUndefined();
             wip.setWidth(100, UNITS_PERCENTAGE);
+
+            VerticalLayout header = new VerticalLayout();
+            header.setSizeUndefined();
+            header.setWidth(100, UNITS_PERCENTAGE);
+            header.addComponent(name);
             header.addComponent(wip);
 
-            grid.addComponent(header, sortOrder, 0);
-
             KanbanColumn column = new KanbanColumn(this, stateColumn);
-
-            grid.addComponent(column, sortOrder, 1);
             for (Card card : Card.findCardsByStateColumn(stateColumn)
                     .getResultList()) {
                 column.addComponent(new KanbanCard(card));
@@ -106,12 +102,13 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
                     + stateColumn.getDefinitionOfDone(), Label.CONTENT_XHTML);
             dod.setStyleName("dod");
             dod.setSizeUndefined();
-            grid.addComponent(dod, sortOrder, 2);
-        }
-    }
 
-    @Override
-    public String getWarningForNavigatingFrom() {
-        return null;
+            int sortOrder = stateColumn.getSortOrder();
+            int row = 0;
+            grid.addComponent(header, sortOrder, row++);
+            grid.addComponent(column, sortOrder, row++);
+            grid.addComponent(dod, sortOrder, row++);
+            grid.setColumnExpandRatio(sortOrder, 1);
+        }
     }
 }

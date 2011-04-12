@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,6 +27,10 @@ public class Card {
 
     @ManyToOne
     private StateColumn stateColumn;
+
+    @NotNull
+    @Min(0L)
+    private int sortOrder;
 
     private String owner = "";
 
