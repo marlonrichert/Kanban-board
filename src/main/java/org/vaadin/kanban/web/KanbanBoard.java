@@ -16,7 +16,6 @@ import com.vaadin.ui.VerticalLayout;
 public class KanbanBoard extends CustomComponent implements Navigator.View {
 
     private GridLayout grid;
-    private AbsoluteLayout mainLayout;
 
     /**
      * The constructor should first build the main layout, set the composition
@@ -26,23 +25,23 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
      * editor.
      */
     public KanbanBoard() {
-        buildMainLayout();
-        setCompositionRoot(mainLayout);
-
-    }
-
-    private AbsoluteLayout buildMainLayout() {
         setWidth("100.0%");
         setHeight("100.0%");
+        AbsoluteLayout mainLayout = new AbsoluteLayout();
+
+        mainLayout.setMargin(true);
+
         grid = new GridLayout();
         grid.setStyleName("board");
         grid.setSizeFull();
         grid.setImmediate(true);
-        grid.setMargin(false);
+
+        grid.setMargin(true);
         grid.setSpacing(true);
-        mainLayout = new AbsoluteLayout();
+
         mainLayout.addComponent(grid, "top:0.0px;left:0.0px;");
-        return mainLayout;
+        addStyleName("no-horizontal-drag-hints");
+        setCompositionRoot(mainLayout);
     }
 
     @Override
@@ -102,6 +101,7 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
                     + stateColumn.getDefinitionOfDone(), Label.CONTENT_XHTML);
             dod.setStyleName("dod");
             dod.setSizeUndefined();
+            dod.setWidth(100, UNITS_PERCENTAGE);
 
             int sortOrder = stateColumn.getSortOrder();
             int row = 0;

@@ -24,6 +24,10 @@ public class KanbanCard extends DragAndDropWrapper implements
         VerticalLayout root = (VerticalLayout) getCompositionRoot();
         root.addComponent(new Label(model.getDescription()));
         root.setSizeFull();
+
+        root.setMargin(true);
+        root.setSpacing(true);
+
         // root.addListener(this);
     }
 

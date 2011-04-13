@@ -17,14 +17,18 @@ import com.vaadin.ui.VerticalLayout;
 public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
 
     private KanbanBoard board;
-    private VerticalLayout compositionRoot;
+    private VerticalLayout root;
     private StateColumn model;
 
     public KanbanColumn(KanbanBoard board, StateColumn model) {
         super(new VerticalLayout());
-        compositionRoot = (VerticalLayout) getCompositionRoot();
-        compositionRoot.setSizeUndefined();
-        compositionRoot.setWidth(100, UNITS_PERCENTAGE);
+        root = (VerticalLayout) getCompositionRoot();
+        root.setSizeUndefined();
+        root.setWidth(100, UNITS_PERCENTAGE);
+
+        root.setMargin(true);
+        root.setSpacing(true);
+
         this.board = board;
         this.model = model;
         setStyleName("column");
@@ -38,14 +42,14 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
             KanbanCard card = (KanbanCard) c;
             int sortOrder = card.getModel().getSortOrder();
             int index = 0;
-            while (index < compositionRoot.getComponentCount()) {
-                if (sortOrder < ((KanbanCard) compositionRoot
-                        .getComponent(index)).getModel().getSortOrder()) {
+            while (index < root.getComponentCount()) {
+                if (sortOrder < ((KanbanCard) root.getComponent(index))
+                        .getModel().getSortOrder()) {
                     break;
                 }
                 index++;
             }
-            compositionRoot.addComponent(card, index);
+            root.addComponent(card, index);
             card.setDropHandler(this);
         }
     }
@@ -59,67 +63,69 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
                     .getTargetDetails();
             DropTarget target = details.getTarget();
             Card sourceCard = ((KanbanCard) sourceComponent).getModel();
+            StateColumn sourceColumn = sourceCard.getStateColumn();
 
-            // FIXME: first remove from old column, then insert into new
+            if (target == sourceComponent) {
+                return;
+            }
 
-            if (target == this) {
+            sourceCard = remove(sourceCard, sourceColumn);
+            if (target instanceof KanbanCard) {
+                final int index = ((KanbanCard) target).getModel()
+                        .getSortOrder();
 
-                System.out.println("target: " + model.getName());
-
-                int size = Card.findCardsByStateColumn(model).getResultList()
-                        .size();
-                if (sourceCard.getStateColumn().equals(model)) {
-                    int index = size - 1;
-                    int oldSpot = sourceCard.getSortOrder();
-                    sourceCard.setSortOrder(index--);
-                    while (index > oldSpot) {
-                        Card otherCard = ((KanbanCard) compositionRoot
-                                .getComponent(index)).getModel();
-                        otherCard.setSortOrder(index--);
-                        otherCard.merge();
-                    }
-                } else {
-                    sourceCard.setSortOrder(size);
-                }
-
-                System.out.println("index: " + sourceCard.getSortOrder());
-
-            } else if (target instanceof KanbanCard) {
-
-                System.out.println("target: "
-                        + ((KanbanCard) target).getModel().getDescription());
-                System.out.println("dropLocation: "
-                        + details.verticalDropLocation());
-
-                if (target == sourceComponent) {
-                    return;
-                }
-                int index = ((KanbanCard) target).getModel().getSortOrder();
-
+                insert(sourceCard,
+                        details.verticalDropLocation().equals(
+                                VerticalDropLocation.BOTTOM) ? index + 1
+                                : index);
+            } else {
                 if (details.verticalDropLocation().equals(
-                        VerticalDropLocation.BOTTOM)) {
-                    index++;
-                }
-
-                System.out.println("index: " + index);
-
-                sourceCard.setSortOrder(index);
-                while (index < compositionRoot.getComponentCount()) {
-                    Card otherCard = ((KanbanCard) compositionRoot
-                            .getComponent(index)).getModel();
-                    otherCard.setSortOrder(++index);
-                    otherCard.merge();
+                        VerticalDropLocation.TOP)) {
+                    insert(sourceCard, 0);
+                } else {
+                    append(sourceCard);
                 }
             }
-            sourceCard.setStateColumn(model);
-            sourceCard = sourceCard.merge();
-            sourceCard.flush();
             board.update();
         }
     }
 
+    private Card append(Card card) {
+        card.setSortOrder(Card.findCardsByStateColumn(model).getResultList()
+                .size());
+        card.setStateColumn(model);
+        return card.merge();
+    }
+
+    private Card insert(Card card, int index) {
+        for (Card c : Card.findCardsByStateColumn(model).getResultList()) {
+            final int sortOrder = c.getSortOrder();
+            if (sortOrder >= index) {
+                c.setSortOrder(sortOrder + 1);
+                c.merge();
+            }
+        }
+        card.setSortOrder(index);
+        card.setStateColumn(model);
+        return card.merge();
+    }
+
+    private Card remove(Card card, StateColumn column) {
+        int index = card.getSortOrder();
+        for (Card c : Card.findCardsByStateColumn(column).getResultList()) {
+            final int sortOrder = c.getSortOrder();
+            if (sortOrder > index) {
+                c.setSortOrder(sortOrder - 1);
+                c.merge();
+            }
+        }
+        card.setStateColumn(null);
+        return card.merge();
+    }
+
     @Override
     public AcceptCriterion getAcceptCriterion() {
+
         return AcceptAll.get();
     }
 }

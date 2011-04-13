@@ -1,5 +1,6 @@
 package org.vaadin.kanban.web;
 
+import org.vaadin.kanban.domain.Card;
 import org.vaadin.kanban.domain.StateColumn;
 
 import com.vaadin.Application;
@@ -17,7 +18,21 @@ public class KanbanApplication extends Application {
             StateColumn backlog = new StateColumn();
             backlog.setSortOrder(index++);
             backlog.setName("Backlog");
-            backlog.persist();
+            backlog = backlog.merge();
+
+            if (Card.findAllCards().size() == 0) {
+                Card kanban = new Card();
+                kanban.setDescription("As a developer, I want a kanban board, so that I can be lean.");
+                kanban.setStateColumn(backlog);
+                kanban.setSortOrder(0);
+                kanban.persist();
+
+                Card scrum = new Card();
+                scrum.setDescription("As a developer, I want a scrum task board, so that I can be agile.");
+                scrum.setStateColumn(backlog);
+                scrum.setSortOrder(1);
+                scrum.persist();
+            }
 
             StateColumn todo = new StateColumn();
             todo.setSortOrder(index++);
