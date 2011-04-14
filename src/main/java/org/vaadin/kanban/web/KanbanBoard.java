@@ -29,15 +29,16 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
         setHeight("100.0%");
         AbsoluteLayout mainLayout = new AbsoluteLayout();
 
-        mainLayout.setMargin(true);
-
         grid = new GridLayout();
         grid.setStyleName("board");
         grid.setSizeFull();
         grid.setImmediate(true);
 
-        grid.setMargin(true);
         grid.setSpacing(true);
+
+        // want the board to use all available space
+        grid.setMargin(false);
+        mainLayout.setMargin(false);
 
         mainLayout.addComponent(grid, "top:0.0px;left:0.0px;");
         addStyleName("no-horizontal-drag-hints");
@@ -97,7 +98,7 @@ public class KanbanBoard extends CustomComponent implements Navigator.View {
                 column.addComponent(new KanbanCard(card));
             }
 
-            Label dod = new Label("<b>Definition of done</b>"
+            Label dod = new Label("<h3>Definition of done</h3>"
                     + stateColumn.getDefinitionOfDone(), Label.CONTENT_XHTML);
             dod.setStyleName("dod");
             dod.setSizeUndefined();
