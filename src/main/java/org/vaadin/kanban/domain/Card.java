@@ -14,11 +14,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.vaadin.kanban.CardModel;
+import org.vaadin.kanban.ColumnModel;
 
 @RooJavaBean
 @RooToString
 @RooEntity(finders = { "findCardsByStateColumn" })
-public class Card {
+public class Card implements CardModel {
 
     @NotNull
     @Column(unique = true)
@@ -41,4 +43,14 @@ public class Card {
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "S-")
     private Date endDate;
+
+    @Override
+    public ColumnModel getColumn() {
+        return getStateColumn();
+    }
+
+    @Override
+    public void setColumn(ColumnModel column) {
+        setStateColumn((StateColumn) column);
+    }
 }

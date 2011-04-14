@@ -1,8 +1,5 @@
 package org.vaadin.kanban;
 
-import org.vaadin.kanban.domain.Card;
-import org.vaadin.kanban.domain.StateColumn;
-
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
 import com.vaadin.event.dd.DropTarget;
@@ -16,11 +13,11 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
 
-    private KanbanBoard board;
+    private KanbanBoard parent;
     private VerticalLayout root;
-    private StateColumn model;
+    private ColumnModel model;
 
-    public KanbanColumn(KanbanBoard board, StateColumn model) {
+    public KanbanColumn(KanbanBoard parent, ColumnModel model) {
         super(new VerticalLayout());
         root = (VerticalLayout) getCompositionRoot();
         root.setSizeUndefined();
@@ -29,7 +26,7 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
         root.setMargin(true);
         root.setSpacing(true);
 
-        this.board = board;
+        this.parent = parent;
         this.model = model;
         setStyleName("column");
         setSizeFull();
@@ -62,8 +59,8 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
             WrapperTargetDetails details = (WrapperTargetDetails) event
                     .getTargetDetails();
             DropTarget target = details.getTarget();
-            Card sourceCard = ((KanbanCard) sourceComponent).getModel();
-            StateColumn sourceColumn = sourceCard.getStateColumn();
+            CardModel sourceCard = ((KanbanCard) sourceComponent).getModel();
+            ColumnModel sourceColumn = sourceCard.getColumn();
 
             if (target == sourceComponent) {
                 return;
@@ -75,57 +72,35 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
                         .getSortOrder();
 
                 insert(sourceCard,
-                        details.verticalDropLocation().equals(
+                        details.getVerticalDropLocation().equals(
                                 VerticalDropLocation.BOTTOM) ? index + 1
                                 : index);
             } else {
-                if (details.verticalDropLocation().equals(
+                if (details.getVerticalDropLocation().equals(
                         VerticalDropLocation.TOP)) {
                     insert(sourceCard, 0);
                 } else {
                     append(sourceCard);
                 }
             }
-            board.update();
+            parent.refresh();
         }
     }
 
-    private Card append(Card card) {
-        card.setSortOrder(Card.findCardsByStateColumn(model).getResultList()
-                .size());
-        card.setStateColumn(model);
-        return card.merge();
+    private CardModel append(CardModel card) {
+        return model.append(card);
     }
 
-    private Card insert(Card card, int index) {
-        for (Card c : Card.findCardsByStateColumn(model).getResultList()) {
-            final int sortOrder = c.getSortOrder();
-            if (sortOrder >= index) {
-                c.setSortOrder(sortOrder + 1);
-                c.merge();
-            }
-        }
-        card.setSortOrder(index);
-        card.setStateColumn(model);
-        return card.merge();
+    private CardModel insert(CardModel card, int index) {
+        return model.insert(card, index);
     }
 
-    private Card remove(Card card, StateColumn column) {
-        int index = card.getSortOrder();
-        for (Card c : Card.findCardsByStateColumn(column).getResultList()) {
-            final int sortOrder = c.getSortOrder();
-            if (sortOrder > index) {
-                c.setSortOrder(sortOrder - 1);
-                c.merge();
-            }
-        }
-        card.setStateColumn(null);
-        return card.merge();
+    private CardModel remove(CardModel card, ColumnModel column) {
+        return column.remove(card);
     }
 
     @Override
     public AcceptCriterion getAcceptCriterion() {
-
         return AcceptAll.get();
     }
 }

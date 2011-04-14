@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.vaadin.kanban.KanbanBoard;
 import org.vaadin.navigator.Navigator;
 
 import com.vaadin.Application;
@@ -107,10 +106,11 @@ public class KanbanEntityManagerView extends CustomComponent implements
         }
     }
 
-    private class KanbanMenuItem extends AbsoluteLayout implements MenuItem {
+    private class KanbanBoardMenuItem extends AbsoluteLayout implements
+            MenuItem {
         private Button selectButton = new NativeButton();
 
-        public KanbanMenuItem() {
+        public KanbanBoardMenuItem() {
             setHeight("36px");
             setWidth("100%");
             addStyleName("menu-item");
@@ -127,7 +127,7 @@ public class KanbanEntityManagerView extends CustomComponent implements
 
         @Override
         public Class<? extends Navigator.View> getViewClass() {
-            return KanbanBoard.class;
+            return BoardView.class;
         }
     }
 
@@ -218,8 +218,8 @@ public class KanbanEntityManagerView extends CustomComponent implements
     private void addEntityViewsToList() {
         final Map<String, Class> entityViews = listEntityViews();
         navigator.addView("welcome", WelcomeView.class);
-        navigator.addView("board", KanbanBoard.class);
-        KanbanMenuItem kanbanMenuItem = new KanbanMenuItem();
+        navigator.addView("board", BoardView.class);
+        KanbanBoardMenuItem kanbanMenuItem = new KanbanBoardMenuItem();
         menuItems.add(kanbanMenuItem);
         viewList.addComponent(kanbanMenuItem);
         for (final String key : entityViews.keySet()) {

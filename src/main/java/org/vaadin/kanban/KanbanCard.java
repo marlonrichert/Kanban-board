@@ -1,7 +1,5 @@
 package org.vaadin.kanban;
 
-import org.vaadin.kanban.domain.Card;
-
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.DragAndDropWrapper;
@@ -11,9 +9,9 @@ import com.vaadin.ui.VerticalLayout;
 public class KanbanCard extends DragAndDropWrapper implements
         LayoutClickListener {
 
-    private Card model;
+    private CardModel model;
 
-    public KanbanCard(Card model) {
+    public KanbanCard(CardModel model) {
         super(new VerticalLayout());
         this.model = model;
         setDragStartMode(DragStartMode.WRAPPER);
@@ -31,7 +29,7 @@ public class KanbanCard extends DragAndDropWrapper implements
         // root.addListener(this);
     }
 
-    public Card getModel() {
+    public CardModel getModel() {
         return model;
     }
 
