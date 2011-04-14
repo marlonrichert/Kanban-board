@@ -21,13 +21,17 @@
     overflow: visible !important;
 }
 
+.board .v-ddwrapper {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
 .board .column {
 /*     background-color: rgba(0, 232, 109, 0.597656); */
 }
 
 .board .card {
     background-color: gold;
-/*     margin-top: 3ex; */
 }
 
 .board .v-ddwrapper {
