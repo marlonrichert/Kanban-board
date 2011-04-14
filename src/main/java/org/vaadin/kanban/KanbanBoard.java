@@ -1,4 +1,4 @@
-package org.vaadin.kanban.web;
+package org.vaadin.kanban;
 
 import java.util.List;
 

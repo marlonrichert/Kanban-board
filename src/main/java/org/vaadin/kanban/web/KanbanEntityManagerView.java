@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.vaadin.kanban.KanbanBoard;
 import org.vaadin.navigator.Navigator;
 
 import com.vaadin.Application;
@@ -100,6 +101,7 @@ public class KanbanEntityManagerView extends CustomComponent implements
             return newButton;
         }
 
+        @Override
         public Class<? extends Navigator.View> getViewClass() {
             return viewClass;
         }
@@ -118,7 +120,7 @@ public class KanbanEntityManagerView extends CustomComponent implements
             selectButton.addListener(new Button.ClickListener() {
                 @Override
                 public void buttonClick(ClickEvent event) {
-                    navigator.navigateTo("kanban");
+                    navigator.navigateTo("board");
                 }
             });
         }
@@ -216,7 +218,7 @@ public class KanbanEntityManagerView extends CustomComponent implements
     private void addEntityViewsToList() {
         final Map<String, Class> entityViews = listEntityViews();
         navigator.addView("welcome", WelcomeView.class);
-        navigator.addView("kanban", KanbanBoard.class);
+        navigator.addView("board", KanbanBoard.class);
         KanbanMenuItem kanbanMenuItem = new KanbanMenuItem();
         menuItems.add(kanbanMenuItem);
         viewList.addComponent(kanbanMenuItem);

@@ -43,3 +43,5 @@ database properties list
 database properties set --key database.url --value jdbc:hsqldb:file:${user.home}/Kanban;shutdown=true
 database properties list
 perform assembly
+perform assembly
+perform assembly

@@ -1,4 +1,4 @@
-package org.vaadin.kanban.web;
+package org.vaadin.kanban;
 
 import org.vaadin.kanban.domain.Card;
 
