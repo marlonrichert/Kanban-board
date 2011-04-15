@@ -16,8 +16,8 @@ public class KanbanCard extends DragAndDropWrapper implements
         this.model = model;
         setDragStartMode(DragStartMode.WRAPPER);
         setStyleName("card");
-        setSizeFull();
-        setHeight(20, UNITS_EX);
+        setSizeUndefined();
+        setWidth(100, UNITS_PERCENTAGE);
 
         VerticalLayout root = (VerticalLayout) getCompositionRoot();
         root.addComponent(new Label(model.getDescription()));

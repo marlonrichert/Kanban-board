@@ -181,8 +181,6 @@ public class KanbanEntityManagerView extends CustomComponent implements
 
         // add entity views to the list
         addEntityViewsToList();
-
-        // TODO add user code here
     }
 
     @Override

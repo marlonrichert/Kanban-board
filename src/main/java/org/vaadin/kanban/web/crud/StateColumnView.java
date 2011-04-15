@@ -1,12 +1,18 @@
 package org.vaadin.kanban.web.crud;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.vaadin.kanban.web.AbstractEntityView;
 import org.vaadin.kanban.web.EntityEditor;
+
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
 
 @RooVaadinEntityView(formBackingObject = org.vaadin.kanban.domain.StateColumn.class)
-public class StateColumnView extends AbstractEntityView<org.vaadin.kanban.domain.StateColumn> {
+public class StateColumnView extends
+        AbstractEntityView<org.vaadin.kanban.domain.StateColumn> {
 
     @Override
     protected EntityEditor createForm() {
@@ -21,4 +27,11 @@ public class StateColumnView extends AbstractEntityView<org.vaadin.kanban.domain
         setupGeneratedColumns(table);
     }
 
+    @Override
+    public Object[] getTableColumns() {
+        Collection<?> tableColumns = new ArrayList<Object>(Arrays.asList(super
+                .getTableColumns()));
+        tableColumns.remove("cards");
+        return tableColumns.toArray();
+    }
 }

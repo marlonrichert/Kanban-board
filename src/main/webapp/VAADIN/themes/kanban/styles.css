@@ -14,7 +14,8 @@
 }
 
 .v-ddwrapper .v-verticallayout {
-/*     background-color: rgba(255, 255, 255, 0.597656); */
+    /*     background-color: rgba(255, 255, 255, 0.597656); */
+    
 }
 
 .board {
@@ -25,17 +26,17 @@
     overflow: visible !important;
 }
 
-.board .v-ddwrapper {
+.board .column {
     overflow-x: hidden !important;
     overflow-y: auto !important;
-}
-
-.board .column {
-/*     background-color: rgba(0, 232, 109, 0.597656); */
+        border: none;
+    /*     background-color: rgba(0, 232, 109, 0.597656); */
 }
 
 .board .card {
+    overflow: hidden !important;
     background-color: gold;
+    border-bottom: 2px solid black;
 }
 
 .board .v-ddwrapper {
@@ -43,18 +44,14 @@
     border-radius: 0;
 }
 
-.board .v-ddwrapper>div>div {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-}
+/* .board .v-ddwrapper>div>div { */
+/*     margin-top: 0 !important; */
+/*     margin-bottom: 0 !important; */
+/* } */
 
-.board .card>div>div {
-    padding-top: 0 !important;
-}
-
-.board .column>div>div {
-    padding-top: 18px !important;
-}
+/* .board .card>div>div { */
+/*     padding-top: 0 !important; */
+/* } */
 
 .v-label {
     text-align: center;

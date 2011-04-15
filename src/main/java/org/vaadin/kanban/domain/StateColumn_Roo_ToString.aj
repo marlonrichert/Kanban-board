@@ -9,6 +9,7 @@ privileged aspect StateColumn_Roo_ToString {
     
     public String StateColumn.toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Cards: ").append(getCards() == null ? "null" : getCards().size()).append(", ");
         sb.append("Name: ").append(getName()).append(", ");
         sb.append("WorkInProgressLimit: ").append(getWorkInProgressLimit()).append(", ");
         sb.append("SortOrder: ").append(getSortOrder()).append(", ");

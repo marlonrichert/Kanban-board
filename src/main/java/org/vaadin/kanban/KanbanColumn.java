@@ -23,12 +23,13 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
         root.setSizeUndefined();
         root.setWidth(100, UNITS_PERCENTAGE);
 
-        root.setMargin(true);
-        root.setSpacing(true);
+        root.setMargin(false);
+        root.setSpacing(false);
 
         this.parent = parent;
         this.model = model;
         setStyleName("column");
+        addStyleName("no-box-drag-hints");
         setSizeFull();
         setDropHandler(this);
     }

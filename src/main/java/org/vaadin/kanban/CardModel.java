@@ -14,6 +14,8 @@ public interface CardModel {
     /** Sets the column this card is in. */
     void setColumn(ColumnModel stateColumn);
 
+    // FIXME: remove sort order from interface
+
     int getSortOrder();
 
     void setSortOrder(int sortOrder);

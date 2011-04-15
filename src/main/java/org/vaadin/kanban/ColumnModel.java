@@ -11,6 +11,8 @@ public interface ColumnModel {
 
     void setWorkInProgressLimit(int workInProgressLimit);
 
+    // FIXME: remove sort order from interface
+
     int getSortOrder();
 
     void setSortOrder(int sortOrder);
