@@ -29,18 +29,24 @@
 .board .column {
     overflow-x: hidden !important;
     overflow-y: auto !important;
-        border: none;
+    border: none;
     /*     background-color: rgba(0, 232, 109, 0.597656); */
 }
 
 .board .card {
     overflow: hidden !important;
-    background-color: gold;
     border-bottom: 2px solid black;
 }
 
-.board .v-ddwrapper {
+.card, .board .card {
+    background-color: gold;
+}
+
+.v-ddwrapper,.board .v-ddwrapper {
     padding: 0;
+}
+
+.v-ddwrapper {
     border-radius: 0;
 }
 
@@ -52,7 +58,6 @@
 /* .board .card>div>div { */
 /*     padding-top: 0 !important; */
 /* } */
-
 .v-label {
     text-align: center;
 }

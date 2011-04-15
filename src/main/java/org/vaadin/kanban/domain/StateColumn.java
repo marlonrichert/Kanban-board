@@ -1,6 +1,7 @@
 package org.vaadin.kanban.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import org.vaadin.kanban.ColumnModel;
 @RooJavaBean
 @RooToString
 @RooEntity
-public class StateColumn implements ColumnModel {
+public class StateColumn implements ColumnModel, Sortable {
 
     @NotNull
     @Column(unique = true)
@@ -36,21 +37,22 @@ public class StateColumn implements ColumnModel {
 
     @Override
     public Card append(CardModel card) {
-        card.setSortOrder(Card.findCardsByStateColumn(this).getResultList()
-                .size());
-        card.setColumn(this);
-        return ((Card) card).merge();
+        Card c = (Card) card;
+        c.setSortOrder(Card.findCardsByStateColumn(this).getResultList().size());
+        c.setStateColumn(this);
+        return c.merge();
     }
 
     @Override
     public List<CardModel> getCards() {
-        List<CardModel> list = new ArrayList<CardModel>();
+        List<Card> list = new ArrayList<Card>();
         list.addAll(Card.findCardsByStateColumn(this).getResultList());
-        return list;
+        Collections.sort(list, new SortOrderComparator());
+        return new ArrayList<CardModel>(list);
     }
 
     @Override
-    public Card insert(CardModel card, int index) {
+    public Card insert(CardModel cardModel, int index) {
         for (Card c : Card.findCardsByStateColumn(this).getResultList()) {
             final int sortOrder = c.getSortOrder();
             if (sortOrder >= index) {
@@ -58,13 +60,15 @@ public class StateColumn implements ColumnModel {
                 c.merge();
             }
         }
+        Card card = (Card) cardModel;
         card.setSortOrder(index);
-        card.setColumn(this);
-        return ((Card) card).merge();
+        card.setStateColumn(this);
+        return card.merge();
     }
 
     @Override
-    public Card remove(CardModel card) {
+    public Card remove(CardModel cardModel) {
+        Card card = (Card) cardModel;
         int index = card.getSortOrder();
         for (Card c : Card.findCardsByStateColumn(this).getResultList()) {
             final int sortOrder = c.getSortOrder();
@@ -73,7 +77,7 @@ public class StateColumn implements ColumnModel {
                 c.merge();
             }
         }
-        card.setColumn(null);
-        return ((Card) card).merge();
+        card.setStateColumn(null);
+        return card.merge();
     }
 }

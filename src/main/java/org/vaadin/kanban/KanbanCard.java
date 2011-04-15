@@ -6,6 +6,7 @@ import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
+@SuppressWarnings("serial")
 public class KanbanCard extends DragAndDropWrapper implements
         LayoutClickListener {
 

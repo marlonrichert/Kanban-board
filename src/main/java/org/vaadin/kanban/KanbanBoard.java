@@ -7,6 +7,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
+@SuppressWarnings("serial")
 public class KanbanBoard extends CustomComponent {
 
     private GridLayout grid;
@@ -40,7 +41,7 @@ public class KanbanBoard extends CustomComponent {
         if (model == null || grid == null) {
             return;
         }
-        List<ColumnModel> columns = model.getColumns();
+        List<? extends ColumnModel> columns = model.getColumns();
 
         grid.removeAllComponents();
         if (columns.size() < 1) {
@@ -51,7 +52,8 @@ public class KanbanBoard extends CustomComponent {
         grid.setRowExpandRatio(0, 0);
         grid.setRowExpandRatio(1, 2);
         grid.setRowExpandRatio(2, 0);
-        for (ColumnModel column : columns) {
+        for (int i = 0; i < columns.size(); i++) {
+            ColumnModel column = columns.get(i);
             Label name = new Label("<h2>" + column.getName() + "</h2>",
                     Label.CONTENT_XHTML);
             name.setStyleName("header");
@@ -76,18 +78,23 @@ public class KanbanBoard extends CustomComponent {
                 columnView.addComponent(new KanbanCard(card));
             }
 
-            Label dod = new Label("<h3>Definition of done</h3>"
-                    + column.getDefinitionOfDone(), Label.CONTENT_XHTML);
-            dod.setStyleName("dod");
-            dod.setSizeUndefined();
-            dod.setWidth(100, UNITS_PERCENTAGE);
-
-            int sortOrder = column.getSortOrder();
             int row = 0;
-            grid.addComponent(header, sortOrder, row++);
-            grid.addComponent(columnView, sortOrder, row++);
-            grid.addComponent(dod, sortOrder, row++);
-            grid.setColumnExpandRatio(sortOrder, 1);
+            grid.addComponent(header, i, row++);
+
+            if (i > 0 && i < columns.size() - 1) {
+                grid.addComponent(columnView, i, row++);
+
+                Label dod = new Label("<h3>Definition of done</h3>"
+                        + column.getDefinitionOfDone(), Label.CONTENT_XHTML);
+                dod.setStyleName("dod");
+                dod.setSizeUndefined();
+                dod.setWidth(100, UNITS_PERCENTAGE);
+
+                grid.addComponent(dod, i, row++);
+            } else {
+                grid.addComponent(columnView, i, row, i, ++row);
+            }
+            grid.setColumnExpandRatio(i, 1);
         }
     }
 

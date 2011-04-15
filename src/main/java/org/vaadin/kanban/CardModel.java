@@ -6,29 +6,22 @@ public interface CardModel {
 
     String getDescription();
 
-    void setDescription(String description);
-
-    /** Returns the column this card is in. */
-    ColumnModel getColumn();
-
-    /** Sets the column this card is in. */
-    void setColumn(ColumnModel stateColumn);
-
-    // FIXME: remove sort order from interface
-
-    int getSortOrder();
-
-    void setSortOrder(int sortOrder);
+    Date getEndDate();
 
     String getOwner();
 
-    void setOwner(String owner);
+    int getSortOrder();
 
     Date getStartDate();
 
-    void setStartDate(Date startDate);
-
-    Date getEndDate();
+    void setDescription(String description);
 
     void setEndDate(Date endDate);
+
+    void setOwner(String owner);
+
+    void setStartDate(Date startDate);
+
+    /** Returns the column this card is in. */
+    ColumnModel getColumn();
 }

@@ -2,6 +2,7 @@ package org.vaadin.kanban.web;
 
 import com.vaadin.ui.Window;
 
+@SuppressWarnings("serial")
 public class KanbanWindow extends Window {
 
     public KanbanWindow() {

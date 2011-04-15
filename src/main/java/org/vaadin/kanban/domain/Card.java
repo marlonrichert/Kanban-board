@@ -15,12 +15,11 @@ import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 import org.vaadin.kanban.CardModel;
-import org.vaadin.kanban.ColumnModel;
 
 @RooJavaBean
 @RooToString
 @RooEntity(finders = { "findCardsByStateColumn" })
-public class Card implements CardModel {
+public class Card implements CardModel, Sortable {
 
     @NotNull
     @Column(unique = true)
@@ -45,12 +44,7 @@ public class Card implements CardModel {
     private Date endDate;
 
     @Override
-    public ColumnModel getColumn() {
+    public StateColumn getColumn() {
         return getStateColumn();
-    }
-
-    @Override
-    public void setColumn(ColumnModel column) {
-        setStateColumn((StateColumn) column);
     }
 }

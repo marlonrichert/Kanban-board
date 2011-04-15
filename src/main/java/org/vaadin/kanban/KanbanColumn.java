@@ -38,16 +38,7 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
     public void addComponent(Component c) {
         if (c instanceof KanbanCard) {
             KanbanCard card = (KanbanCard) c;
-            int sortOrder = card.getModel().getSortOrder();
-            int index = 0;
-            while (index < root.getComponentCount()) {
-                if (sortOrder < ((KanbanCard) root.getComponent(index))
-                        .getModel().getSortOrder()) {
-                    break;
-                }
-                index++;
-            }
-            root.addComponent(card, index);
+            root.addComponent(card);
             card.setDropHandler(this);
         }
     }
@@ -67,37 +58,24 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
                 return;
             }
 
-            sourceCard = remove(sourceCard, sourceColumn);
+            sourceCard = sourceColumn.remove(sourceCard);
             if (target instanceof KanbanCard) {
                 final int index = ((KanbanCard) target).getModel()
                         .getSortOrder();
 
-                insert(sourceCard,
-                        details.getVerticalDropLocation().equals(
-                                VerticalDropLocation.BOTTOM) ? index + 1
-                                : index);
+                model.insert(sourceCard, (details.getVerticalDropLocation()
+                        .equals(VerticalDropLocation.BOTTOM) ? index + 1
+                        : index));
             } else {
                 if (details.getVerticalDropLocation().equals(
                         VerticalDropLocation.TOP)) {
-                    insert(sourceCard, 0);
+                    model.insert(sourceCard, 0);
                 } else {
-                    append(sourceCard);
+                    model.append(sourceCard);
                 }
             }
             parent.refresh();
         }
-    }
-
-    private CardModel append(CardModel card) {
-        return model.append(card);
-    }
-
-    private CardModel insert(CardModel card, int index) {
-        return model.insert(card, index);
-    }
-
-    private CardModel remove(CardModel card, ColumnModel column) {
-        return column.remove(card);
     }
 
     @Override

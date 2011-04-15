@@ -8,6 +8,7 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
 
+@SuppressWarnings("serial")
 public class KanbanApplication extends Application {
 
     @Override
