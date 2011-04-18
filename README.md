@@ -9,7 +9,5 @@ This project contains 2 things:
 * A stand-alone web app that uses the add-on.
 
 
-Demo
-----
-
-http://marlon.virtuallypreinstalled.com/Kanban#board
+[Online demo](http://marlon.virtuallypreinstalled.com/Kanban#board)
+-------------------------------------------------------------------
