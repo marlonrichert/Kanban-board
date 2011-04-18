@@ -1,0 +1,62 @@
+project --topLevelPackage org.vaadin.kanban --projectName Kanban --java 6
+
+osgi install --url https://oss.sonatype.org/content/repositories/vaadin-snapshots/com/vaadin/com.vaadin.spring.roo.addon/0.9.2.BUILD-SNAPSHOT/com.vaadin.spring.roo.addon-0.9.2.BUILD-20110325.114657-1.jar
+osgi start --url https://oss.sonatype.org/content/repositories/vaadin-snapshots/com/vaadin/com.vaadin.spring.roo.addon/0.9.2.BUILD-SNAPSHOT/com.vaadin.spring.roo.addon-0.9.2.BUILD-20110325.114657-1.jar
+persistence setup --provider ECLIPSELINK --database HYPERSONIC_PERSISTENT
+
+entity --class ~.domain.StateColumn --testAutomatically
+field string --fieldName name --notNull --permitReservedWords --sizeMin 2 --unique 
+field number --fieldName workInProgressLimit --type int --min 0 --primitive
+field string --fieldName definitionOfDone --permitReservedWords
+field number --fieldName sortOrder --type int --min 0 --notNull --unique
+
+entity --class ~.domain.Card --testAutomatically
+field string --fieldName description --notNull --permitReservedWords --sizeMin 2 --unique 
+field reference --fieldName stateColumn --type ~.domain.StateColumn
+field string --fieldName owner
+field date --fieldName startDate --type java.util.Date
+field date --fieldName endDate --type java.util.Date
+field number --fieldName sortOrder --type int --min 0 --notNull --primitive
+finder add --finderName findCardsByStateColumn
+
+perform tests 
+perform clean 
+perform assembly 
+perform package 
+
+vaadin setup --applicationPackage ~.web --baseName Kanban --themeName kanban --useJpaContainer true
+vaadin generate all --package ~.web.crud --visuallyComposable false
+perform clean
+perform assembly
+perform package
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-12 16:18:07
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-13 09:35:23
+help perform assembly
+perform assembly
+help deploy
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-13 15:55:48
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-14 09:51:33
+perform assembly 
+perform assembly
+perform assembly
+database properties list
+database properties set --key database.url --value jdbc:hsqldb:file:${user.home}/Kanban;shutdown=true
+database properties list
+perform assembly
+perform assembly
+perform assembly
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-14 16:20:12
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-15 11:03:50
+perform assembly
+perform clean
+perform package 
+perform assembly
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-15 15:31:10
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-18 09:45:45
+perform clean
+perform package
+perform assembly
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-18 10:00:08
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-18 10:28:17
+perform clean
+perform package

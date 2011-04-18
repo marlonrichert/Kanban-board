@@ -1,0 +1,87 @@
+@import url(../reindeer/styles.css);
+
+/* Default entity manager and entity view styles */
+@import url(entityviews/entitymanagerview.css);
+
+@import url(entityviews/entityviews.css);
+
+.v-app,.v-gridlayout-board>div>div>div {
+    background: white;
+}
+
+.v-gridlayout-board .v-gridlayout-margin>div {
+    background-color: black;
+}
+
+.v-ddwrapper .v-verticallayout {
+    /*     background-color: rgba(255, 255, 255, 0.597656); */
+    
+}
+
+.board {
+    overflow: auto;
+}
+
+.v-gridlayout-board div {
+    overflow: visible !important;
+}
+
+.board .column {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    border: none;
+    /*     background-color: rgba(0, 232, 109, 0.597656); */
+}
+
+.board .card {
+    overflow: hidden !important;
+    border-bottom: 2px solid black;
+}
+
+.card, .board .card {
+    background-color: gold;
+}
+
+.v-ddwrapper,.board .v-ddwrapper {
+    padding: 0;
+}
+
+.v-ddwrapper {
+    border-radius: 0;
+}
+
+/* .board .v-ddwrapper>div>div { */
+/*     margin-top: 0 !important; */
+/*     margin-bottom: 0 !important; */
+/* } */
+
+/* .board .card>div>div { */
+/*     padding-top: 0 !important; */
+/* } */
+.v-label {
+    text-align: center;
+}
+
+.v-label.dod,.v-formlayout-captioncell {
+    text-align: left;
+}
+
+.dod {
+    padding: 1ex 1em;
+}
+
+.dod h3 {
+    margin: 0;
+    margin-left: -.15em;
+}
+
+.dod ul {
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+}
+
+.dod li {
+    padding-left: 1em;
+    text-indent: -1em;
+}
