@@ -12,4 +12,4 @@ This project contains 2 things:
 Demo
 ----
 
-(http://marlon.virtuallypreinstalled.com/Kanban#board)
+http://marlon.virtuallypreinstalled.com/Kanban#board
