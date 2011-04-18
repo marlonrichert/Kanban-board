@@ -38,6 +38,10 @@ public class CardForm extends
         Collection<?> propertyIds = new ArrayList<Object>(
                 item.getItemPropertyIds());
         propertyIds.remove("column");
+        propertyIds.remove("editor");
+        propertyIds.remove("startDate");
+        propertyIds.remove("endDate");
+        propertyIds.remove("sortOrder");
         return propertyIds;
     }
 }

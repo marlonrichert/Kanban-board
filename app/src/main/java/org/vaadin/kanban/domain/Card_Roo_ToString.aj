@@ -10,6 +10,7 @@ privileged aspect Card_Roo_ToString {
     public String Card.toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Column: ").append(getColumn()).append(", ");
+        sb.append("Editor: ").append(getEditor()).append(", ");
         sb.append("Description: ").append(getDescription()).append(", ");
         sb.append("StateColumn: ").append(getStateColumn()).append(", ");
         sb.append("SortOrder: ").append(getSortOrder()).append(", ");

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.vaadin.kanban.EntityEditor;
 import org.vaadin.kanban.web.AbstractEntityView;
-import org.vaadin.kanban.web.EntityEditor;
 
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;

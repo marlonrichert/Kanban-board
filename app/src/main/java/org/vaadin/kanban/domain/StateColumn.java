@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,6 +45,7 @@ public class StateColumn implements ColumnModel, Sortable {
     }
 
     @Override
+    @Transient
     public List<CardModel> getCards() {
         List<Card> list = new ArrayList<Card>();
         list.addAll(Card.findCardsByStateColumn(this).getResultList());

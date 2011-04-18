@@ -18,6 +18,14 @@
     
 }
 
+.v-panel-nocaption>img, .v-panel-nocaption .v-form-description {
+    height: 0;
+}
+
+.v-panel-content>div>div {
+/*     margin-top: 0 !important; */
+}
+
 .board {
     overflow: auto;
 }

@@ -2,6 +2,7 @@ package org.vaadin.kanban.web;
 
 import java.util.ArrayList;
 
+import org.vaadin.kanban.EntityEditor;
 import org.vaadin.navigator.Navigator;
 
 import com.vaadin.Application;

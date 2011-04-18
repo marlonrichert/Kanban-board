@@ -1,5 +1,7 @@
 package org.vaadin.kanban.web;
 
+import org.vaadin.kanban.EntityEditor;
+
 import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
 import com.vaadin.event.ShortcutAction.KeyCode;

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.vaadin.kanban.EntityEditor;
 import org.vaadin.kanban.web.AbstractEntityView;
-import org.vaadin.kanban.web.EntityEditor;
 
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
@@ -31,6 +31,7 @@ public class CardView extends AbstractEntityView<org.vaadin.kanban.domain.Card> 
         Collection<?> tableColumns = new ArrayList<Object>(Arrays.asList(super
                 .getTableColumns()));
         tableColumns.remove("column");
+        tableColumns.remove("editor");
         return tableColumns.toArray();
     }
 }

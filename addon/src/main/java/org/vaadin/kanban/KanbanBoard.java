@@ -75,7 +75,7 @@ public class KanbanBoard extends CustomComponent {
 
             KanbanColumn columnView = new KanbanColumn(this, column);
             for (CardModel card : column.getCards()) {
-                columnView.addComponent(new KanbanCard(card));
+                columnView.addComponent(new KanbanCard(this, card));
             }
 
             int row = 0;

@@ -13,11 +13,11 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
 
-    private KanbanBoard parent;
+    private KanbanBoard board;
     private VerticalLayout root;
     private ColumnModel model;
 
-    public KanbanColumn(KanbanBoard parent, ColumnModel model) {
+    public KanbanColumn(KanbanBoard board, ColumnModel model) {
         super(new VerticalLayout());
         root = (VerticalLayout) getCompositionRoot();
         root.setSizeUndefined();
@@ -26,7 +26,7 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
         root.setMargin(false);
         root.setSpacing(false);
 
-        this.parent = parent;
+        this.board = board;
         this.model = model;
         setStyleName("column");
         addStyleName("no-box-drag-hints");
@@ -74,7 +74,7 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
                     model.append(sourceCard);
                 }
             }
-            parent.refresh();
+            board.refresh();
         }
     }
 

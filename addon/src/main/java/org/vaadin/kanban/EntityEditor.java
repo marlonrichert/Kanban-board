@@ -1,4 +1,4 @@
-package org.vaadin.kanban.web;
+package org.vaadin.kanban;
 
 import com.vaadin.data.Item;
 import com.vaadin.ui.Button.ClickListener;

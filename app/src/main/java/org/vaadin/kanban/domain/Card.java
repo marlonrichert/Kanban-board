@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,6 +16,10 @@ import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 import org.vaadin.kanban.CardModel;
+import org.vaadin.kanban.EntityEditor;
+import org.vaadin.kanban.web.crud.CardForm;
+
+import com.vaadin.data.util.BeanItem;
 
 @RooJavaBean
 @RooToString
@@ -44,7 +49,16 @@ public class Card implements CardModel, Sortable {
     private Date endDate;
 
     @Override
+    @Transient
     public StateColumn getColumn() {
         return getStateColumn();
+    }
+
+    @Override
+    @Transient
+    public EntityEditor getEditor() {
+        CardForm cardForm = new CardForm();
+        cardForm.setItemDataSource(new BeanItem<Card>(this));
+        return cardForm;
     }
 }

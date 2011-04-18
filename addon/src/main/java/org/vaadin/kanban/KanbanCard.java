@@ -2,18 +2,23 @@ package org.vaadin.kanban;
 
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
 public class KanbanCard extends DragAndDropWrapper implements
         LayoutClickListener {
 
     private CardModel model;
+    private KanbanBoard board;
 
-    public KanbanCard(CardModel model) {
+    public KanbanCard(KanbanBoard board, CardModel model) {
         super(new VerticalLayout());
+        this.board = board;
         this.model = model;
         setDragStartMode(DragStartMode.WRAPPER);
         setStyleName("card");
@@ -27,7 +32,7 @@ public class KanbanCard extends DragAndDropWrapper implements
         root.setMargin(true);
         root.setSpacing(true);
 
-        // root.addListener(this);
+        root.addListener(this);
     }
 
     public CardModel getModel() {
@@ -36,6 +41,52 @@ public class KanbanCard extends DragAndDropWrapper implements
 
     @Override
     public void layoutClick(LayoutClickEvent event) {
-        // TODO Auto-generated method stub
+        VerticalLayout layout = new VerticalLayout();
+        final Window dialog = new Window("Card", layout);
+        dialog.setModal(true);
+        dialog.setResizable(false);
+
+        layout.setMargin(false);
+        layout.setSpacing(false);
+        layout.setSizeUndefined();
+
+        final EntityEditor form = model.getEditor();
+        form.setSizeUndefined();
+        layout.addComponent(form);
+        layout.setExpandRatio(form, 1.0f);
+
+        Window browserWindow = getWindow();
+        while (browserWindow.getParent() != null) {
+            browserWindow = browserWindow.getParent();
+        }
+        browserWindow.addWindow(dialog);
+
+        form.addCancelActionListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                dialog.getParent().removeWindow(dialog);
+            }
+        });
+
+        form.addSaveActionListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                dialog.getParent().removeWindow(dialog);
+                form.commit();
+                model = model.merge();
+                board.refresh();
+            }
+        });
+
+        form.setDeleteAllowed(false);
+        form.addDeleteActionListener(new ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                dialog.getParent().removeWindow(dialog);
+                model.remove();
+                board.refresh();
+            }
+        });
     }
 }

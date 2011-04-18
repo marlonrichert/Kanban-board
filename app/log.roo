@@ -73,3 +73,15 @@ perform package
 perform assembly
 perform package
 perform assembly
+perform clean
+perform assembly
+perform clean
+perform clean
+perform clean
+perform clean
+perform clean
+perform package
+perform clean
+perform clean
+perform assembly
+perform assembly
