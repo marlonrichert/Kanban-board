@@ -12,4 +12,4 @@ This project contains 2 things:
 Online demo
 -----------
 
-For an online demo, please refer to the project home page, [above][repository_homepage].
+For an online demo, please refer to the project home page, [above](#repository_homepage).
