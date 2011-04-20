@@ -26,7 +26,12 @@ public class KanbanCard extends DragAndDropWrapper implements
         setWidth(100, UNITS_PERCENTAGE);
 
         VerticalLayout root = (VerticalLayout) getCompositionRoot();
-        root.addComponent(new Label(model.getDescription()));
+        Label description = new Label(model.getDescription());
+        description.setStyleName("description");
+        root.addComponent(description);
+        Label owner = new Label(model.getOwner());
+        owner.setStyleName("owner");
+        root.addComponent(owner);
         root.setSizeFull();
 
         root.setMargin(true);
@@ -75,7 +80,7 @@ public class KanbanCard extends DragAndDropWrapper implements
                 form.commit();
                 model = model.merge();
                 // board.refresh();
-                board.push();
+                board.sync();
             }
         });
 
@@ -87,7 +92,7 @@ public class KanbanCard extends DragAndDropWrapper implements
                 dialog.getParent().removeWindow(dialog);
                 model.remove();
                 // board.refresh();
-                board.push();
+                board.sync();
             }
         });
     }

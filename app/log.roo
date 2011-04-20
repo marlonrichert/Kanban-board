@@ -145,3 +145,28 @@ perform clean
 perform package
 perform clean
 perform package
+perform assembly
+perform package
+vaadin widgetset compile
+perform package
+perform package
+perform package
+perform package
+perform clean
+vaadin widgetset compile
+perform package
+perform package
+perform package
+perform clean
+vaadin widgetset compile
+perform package
+perform command --mavenCommand "clean compile gwt:compile package"
+perform clean
+perform package
+vaadin widgetset compile
+perform package
+perform package
+perform clean
+perform package
+perform clean
+perform package

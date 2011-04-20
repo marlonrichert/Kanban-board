@@ -20,6 +20,7 @@ public class KanbanBoard extends CustomComponent {
     private ICEPush pusher;
 
     public KanbanBoard(BoardModel model) {
+        this.model = model;
         allBoards.put(this, null);
 
         grid = new GridLayout();
@@ -42,22 +43,24 @@ public class KanbanBoard extends CustomComponent {
         setCompositionRoot(root);
         addStyleName("no-horizontal-drag-hints");
         setSizeFull();
-    }
-
-    @Override
-    public void requestRepaint() {
         refresh();
-        super.requestRepaint();
     }
 
     private void refresh() {
         if (model == null || grid == null) {
+
+            System.out.println("model=" + model);
+            System.out.println("grid=" + grid);
+
             return;
         }
         List<? extends ColumnModel> columns = model.getColumns();
 
         grid.removeAllComponents();
         if (columns.size() < 1) {
+
+            System.out.println("columns.size()=" + columns.size());
+
             return;
         }
         grid.setColumns(columns.size());
@@ -115,10 +118,12 @@ public class KanbanBoard extends CustomComponent {
         return model;
     }
 
-    void push() {
+    void sync() {
         for (KanbanBoard board : allBoards.keySet()) {
-            board.pusher.push();
-            board.refresh();
+            synchronized (board.getApplication()) {
+                board.refresh();
+                board.pusher.push();
+            }
         }
     }
 }

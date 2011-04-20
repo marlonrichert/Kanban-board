@@ -75,7 +75,7 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
                 }
             }
             // board.refresh();
-            board.push();
+            board.sync();
         }
     }
 

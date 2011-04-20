@@ -79,6 +79,10 @@ public class KanbanApplication extends Application {
 
         Window window = createNewWindow();
         setMainWindow(window);
+        // File base = getContext().getBaseDirectory();
+        // if (base != null) {
+        // window.setCaption(base.getName());
+        // }
     }
 
     public Window createNewWindow() {
