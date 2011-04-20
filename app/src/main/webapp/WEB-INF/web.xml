@@ -27,10 +27,14 @@
     </listener>
     <servlet>
         <servlet-name>Kanban Vaadin Application Servlet</servlet-name>
-        <servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
+        <servlet-class>org.vaadin.artur.icepush.ICEPushServlet</servlet-class>
         <init-param>
             <param-name>application</param-name>
             <param-value>org.vaadin.kanban.web.KanbanApplication</param-value>
+        </init-param>
+        <init-param>
+            <param-name>widgetset</param-name>
+            <param-value>org.vaadin.kanban.web.KanbanWidgetset</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

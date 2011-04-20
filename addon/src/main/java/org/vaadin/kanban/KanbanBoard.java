@@ -1,6 +1,10 @@
 package org.vaadin.kanban;
 
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
+
+import org.vaadin.artur.icepush.ICEPush;
 
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.GridLayout;
@@ -10,11 +14,13 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class KanbanBoard extends CustomComponent {
 
+    private static final Map<KanbanBoard, ?> allBoards = new WeakHashMap<KanbanBoard, Object>();
     private GridLayout grid;
     private BoardModel model;
+    private ICEPush pusher;
 
     public KanbanBoard(BoardModel model) {
-        this.model = model;
+        allBoards.put(this, null);
 
         grid = new GridLayout();
         grid.setStyleName("board");
@@ -26,7 +32,14 @@ public class KanbanBoard extends CustomComponent {
 
         grid.setSpacing(true);
 
-        setCompositionRoot(grid);
+        VerticalLayout root = new VerticalLayout();
+        root.setSizeFull();
+        root.setMargin(false);
+        root.addComponent(grid);
+        root.setExpandRatio(grid, 1);
+        pusher = new ICEPush();
+        root.addComponent(pusher);
+        setCompositionRoot(root);
         addStyleName("no-horizontal-drag-hints");
         setSizeFull();
     }
@@ -37,7 +50,7 @@ public class KanbanBoard extends CustomComponent {
         super.requestRepaint();
     }
 
-    void refresh() {
+    private void refresh() {
         if (model == null || grid == null) {
             return;
         }
@@ -100,5 +113,12 @@ public class KanbanBoard extends CustomComponent {
 
     public BoardModel getModel() {
         return model;
+    }
+
+    void push() {
+        for (KanbanBoard board : allBoards.keySet()) {
+            board.pusher.push();
+            board.refresh();
+        }
     }
 }

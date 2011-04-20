@@ -63,18 +63,19 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
                 final int index = ((KanbanCard) target).getModel()
                         .getSortOrder();
 
-                model.insert(sourceCard, (details.getVerticalDropLocation()
+                model.insert(sourceCard, (details.verticalDropLocation()
                         .equals(VerticalDropLocation.BOTTOM) ? index + 1
                         : index));
             } else {
-                if (details.getVerticalDropLocation().equals(
+                if (details.verticalDropLocation().equals(
                         VerticalDropLocation.TOP)) {
                     model.insert(sourceCard, 0);
                 } else {
                     model.append(sourceCard);
                 }
             }
-            board.refresh();
+            // board.refresh();
+            board.push();
         }
     }
 

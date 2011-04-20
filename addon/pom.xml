@@ -35,7 +35,26 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin</artifactId>
-            <version>6.6-SNAPSHOT</version>
+            <version>6.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>icepush</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.icepush</groupId>
+        	<artifactId>icepush</artifactId>
+        	<version>2.0.1</version>
+        	<type>jar</type>
+        	<scope>compile</scope>
+        </dependency>
+        <dependency>
+        	<groupId>org.icepush</groupId>
+        	<artifactId>icepush-gwt</artifactId>
+        	<version>2.0-A3</version>
+        	<type>jar</type>
+        	<scope>compile</scope>
         </dependency>
     </dependencies>
     <build>

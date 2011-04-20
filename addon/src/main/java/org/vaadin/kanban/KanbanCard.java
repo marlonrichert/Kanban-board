@@ -74,7 +74,8 @@ public class KanbanCard extends DragAndDropWrapper implements
                 dialog.getParent().removeWindow(dialog);
                 form.commit();
                 model = model.merge();
-                board.refresh();
+                // board.refresh();
+                board.push();
             }
         });
 
@@ -85,7 +86,8 @@ public class KanbanCard extends DragAndDropWrapper implements
             public void buttonClick(ClickEvent event) {
                 dialog.getParent().removeWindow(dialog);
                 model.remove();
-                board.refresh();
+                // board.refresh();
+                board.push();
             }
         });
     }

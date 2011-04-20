@@ -85,3 +85,63 @@ perform clean
 perform clean
 perform assembly
 perform assembly
+perform assembly
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-18 17:38:40
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-19 10:06:13
+perform clean
+perform package
+help vaadin widgetset 
+help vaadin widgetset create
+// [failed] vaadin widgetset create
+development mode --enabled true
+// [failed] vaadin widgetset create
+vaadin widgetset update 
+vaadin widgetset compile
+perform clean
+vaadin widgetset compile
+vaadin widgetset compile
+perform clean
+vaadin widgetset compile
+perform package 
+vaadin widgetset compile
+vaadin widgetset compile
+vaadin widgetset compile
+help 1
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-19 11:59:01
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-19 14:46:55
+vaadin widgetset update 
+vaadin widgetset compile
+perform clean
+perform package
+vaadin widgetset compile 
+perform clean
+perform package
+vaadin widgetset compile
+perform package
+vaadin widgetset compile
+vaadin widgetset update 
+vaadin widgetset compile 
+perform clean
+perform package
+help perform command 
+perform command --mavenCommand gwt:clean
+vaadin widgetset compile
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-19 15:46:09
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-20 08:47:51
+perform clean
+vaadin widgetset compile 
+perform package
+perform package
+perform assembly
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-20 10:03:13
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-20 10:30:42
+perform clean
+perform package
+perform clean
+perform package
+perform clean
+perform package
+perform clean
+perform package
+perform clean
+perform package

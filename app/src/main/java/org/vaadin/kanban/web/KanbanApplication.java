@@ -19,6 +19,7 @@ public class KanbanApplication extends Application {
             StateColumn backlog = new StateColumn();
             backlog.setSortOrder(index++);
             backlog.setName("Backlog");
+            backlog.setWorkInProgressLimit(8);
             backlog = backlog.merge();
 
             if (Card.findAllCards().size() == 0) {
