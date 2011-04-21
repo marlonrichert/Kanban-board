@@ -37,6 +37,7 @@ public class StateColumn implements ColumnModel, Sortable {
     private String definitionOfDone = "";
 
     @Override
+    @Transient
     public Card append(CardModel card) {
         Card c = (Card) card;
         c.setSortOrder(Card.findCardsByStateColumn(this).getResultList().size());
@@ -54,6 +55,7 @@ public class StateColumn implements ColumnModel, Sortable {
     }
 
     @Override
+    @Transient
     public Card insert(CardModel cardModel, int index) {
         for (Card c : Card.findCardsByStateColumn(this).getResultList()) {
             final int sortOrder = c.getSortOrder();
@@ -69,6 +71,7 @@ public class StateColumn implements ColumnModel, Sortable {
     }
 
     @Override
+    @Transient
     public Card remove(CardModel cardModel) {
         Card card = (Card) cardModel;
         int index = card.getSortOrder();

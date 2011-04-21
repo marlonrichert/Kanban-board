@@ -1,5 +1,7 @@
 package org.vaadin.kanban;
 
+import java.util.Date;
+
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
 import com.vaadin.event.dd.DropTarget;
@@ -57,7 +59,14 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
             if (target == sourceComponent) {
                 return;
             }
-
+            if (sourceColumn.getSortOrder() == 0 && model.getSortOrder() != 0) {
+                sourceCard.setStartDate(new Date());
+            }
+            if (sourceColumn != model
+                    && model.getSortOrder() == board.getModel().getColumns()
+                            .size() - 1) {
+                sourceCard.setEndDate(new Date());
+            }
             sourceCard = sourceColumn.remove(sourceCard);
             if (target instanceof KanbanCard) {
                 final int index = ((KanbanCard) target).getModel()
@@ -74,7 +83,6 @@ public class KanbanColumn extends DragAndDropWrapper implements DropHandler {
                     model.append(sourceCard);
                 }
             }
-            // board.refresh();
             board.sync();
         }
     }

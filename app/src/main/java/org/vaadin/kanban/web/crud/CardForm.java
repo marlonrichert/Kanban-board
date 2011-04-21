@@ -9,6 +9,7 @@ import org.vaadin.kanban.web.AutomaticEntityForm;
 import com.vaadin.data.Item;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinAutomaticEntityForm;
 
+@SuppressWarnings("serial")
 @RooVaadinAutomaticEntityForm(formBackingObject = org.vaadin.kanban.domain.Card.class)
 public class CardForm extends
         AutomaticEntityForm<org.vaadin.kanban.domain.Card> {

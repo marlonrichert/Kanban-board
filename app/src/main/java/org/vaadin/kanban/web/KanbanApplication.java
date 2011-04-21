@@ -8,8 +8,37 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
 
-@SuppressWarnings("serial")
 public class KanbanApplication extends Application {
+    private static final long serialVersionUID = 1L;
+
+    public Window createNewWindow() {
+        final Window window = new KanbanWindow();
+
+        // remove window on close to avoid memory leaks
+        window.addListener(new CloseHandler(this, window));
+
+        return window;
+    }
+
+    @Override
+    public Window getWindow(String name) {
+        // See if the window already exists in the application
+        Window window = super.getWindow(name);
+
+        // If a dynamically created window is requested, but
+        // it does not exist yet, create it.
+        if (window == null) {
+            // Create the window object.
+            window = createNewWindow();
+            window.setName(name);
+
+            // Add it to the application as a regular
+            // application-level window
+            addWindow(window);
+        }
+
+        return window;
+    }
 
     @Override
     public void init() {
@@ -79,46 +108,24 @@ public class KanbanApplication extends Application {
 
         Window window = createNewWindow();
         setMainWindow(window);
-        // File base = getContext().getBaseDirectory();
-        // if (base != null) {
-        // window.setCaption(base.getName());
-        // }
     }
 
-    public Window createNewWindow() {
-        final Window window = new KanbanWindow();
+    private static final class CloseHandler implements CloseListener {
+        private static final long serialVersionUID = 1L;
+        private final Window window;
+        private final KanbanApplication app;
 
-        // remove window on close to avoid memory leaks
-        window.addListener(new CloseListener() {
-            @Override
-            public void windowClose(CloseEvent e) {
-                if (getMainWindow() != window) {
-                    KanbanApplication.this.removeWindow(window);
-                }
-            }
-        });
-
-        return window;
-    }
-
-    @Override
-    public Window getWindow(String name) {
-        // See if the window already exists in the application
-        Window window = super.getWindow(name);
-
-        // If a dynamically created window is requested, but
-        // it does not exist yet, create it.
-        if (window == null) {
-            // Create the window object.
-            window = createNewWindow();
-            window.setName(name);
-
-            // Add it to the application as a regular
-            // application-level window
-            addWindow(window);
+        CloseHandler(KanbanApplication app, Window window) {
+            this.app = app;
+            this.window = window;
         }
 
-        return window;
+        @Override
+        public void windowClose(CloseEvent e) {
+            if (app.getMainWindow() != window) {
+                app.removeWindow(window);
+            }
+        }
     }
 
 }

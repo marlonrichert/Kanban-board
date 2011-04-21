@@ -1,5 +1,7 @@
 package org.vaadin.kanban;
 
+import java.util.Date;
+
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.Button.ClickEvent;
@@ -26,14 +28,34 @@ public class KanbanCard extends DragAndDropWrapper {
         setWidth(100, UNITS_PERCENTAGE);
 
         VerticalLayout root = (VerticalLayout) getCompositionRoot();
+
         Label description = new Label(model.getDescription());
         description.setStyleName("description");
-        root.addComponent(description);
-        Label owner = new Label(model.getOwner());
-        owner.setStyleName("owner");
-        root.addComponent(owner);
-        root.setSizeFull();
 
+        String ownerString = model.getOwner();
+        Label owner = new Label(ownerString);
+        owner.setStyleName("owner");
+        owner.setDescription("Owner");
+
+        Date startDate = model.getStartDate();
+        Date endDate = model.getEndDate();
+        String dateString = "";
+        if (startDate != null) {
+            dateString += String.format("%tF", startDate);
+            if (endDate != null) {
+                dateString += " Ð " + String.format("%tF", endDate);
+            }
+        }
+        Label date = new Label(dateString);
+        date.setStyleName("date");
+        date.setDescription("Start date"
+                + (endDate == null ? "" : " Ð end date"));
+
+        root.addComponent(date);
+        root.addComponent(description);
+        root.addComponent(owner);
+
+        root.setSizeFull();
         root.setMargin(true);
         root.setSpacing(true);
 

@@ -3,18 +3,6 @@ package org.vaadin.kanban;
 import java.util.List;
 
 public interface ColumnModel {
-    String getDefinitionOfDone();
-
-    String getName();
-
-    int getWorkInProgressLimit();
-
-    void setDefinitionOfDone(String definitionOfDone);
-
-    void setName(String name);
-
-    void setWorkInProgressLimit(int workInProgressLimit);
-
     /**
      * Appends the given card to the end of this column and returns a new
      * representation of it.
@@ -27,6 +15,14 @@ public interface ColumnModel {
      */
     List<CardModel> getCards();
 
+    String getDefinitionOfDone();
+
+    String getName();
+
+    int getSortOrder();
+
+    int getWorkInProgressLimit();
+
     /**
      * Inserts the given card into this column at the given index and returns a
      * new representation of it.
@@ -38,4 +34,10 @@ public interface ColumnModel {
      * of it.
      */
     CardModel remove(CardModel card);
+
+    void setDefinitionOfDone(String definitionOfDone);
+
+    void setName(String name);
+
+    void setWorkInProgressLimit(int workInProgressLimit);
 }

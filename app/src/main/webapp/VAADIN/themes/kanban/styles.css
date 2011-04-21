@@ -68,15 +68,11 @@
     border-radius: 0;
 }
 
-/* .board .v-ddwrapper>div>div { */
-/*     margin-top: 0 !important; */
-/*     margin-bottom: 0 !important; */
-/* } */
-
-/* .board .card>div>div { */
-/*     padding-top: 0 !important; */
-/* } */
 .v-label {
+    text-align: center;
+}
+
+.v-label.date {
     text-align: center;
 }
 
