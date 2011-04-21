@@ -12,9 +12,8 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 public class KanbanCard extends DragAndDropWrapper implements
         LayoutClickListener {
-
-    private CardModel model;
-    private KanbanBoard board;
+    KanbanBoard board;
+    CardModel model;
 
     public KanbanCard(KanbanBoard board, CardModel model) {
         super(new VerticalLayout());
@@ -47,7 +46,7 @@ public class KanbanCard extends DragAndDropWrapper implements
     @Override
     public void layoutClick(LayoutClickEvent event) {
         VerticalLayout layout = new VerticalLayout();
-        final Window dialog = new Window("Card", layout);
+        final Window dialog = new Window("Edit card", layout);
         dialog.setModal(true);
         dialog.setResizable(false);
 
@@ -66,34 +65,65 @@ public class KanbanCard extends DragAndDropWrapper implements
         }
         browserWindow.addWindow(dialog);
 
-        form.addCancelActionListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                dialog.getParent().removeWindow(dialog);
-            }
-        });
+        form.addCancelActionListener(new CancelHandler(dialog));
 
-        form.addSaveActionListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                dialog.getParent().removeWindow(dialog);
-                form.commit();
-                model = model.merge();
-                // board.refresh();
-                board.sync();
-            }
-        });
+        form.addSaveActionListener(new SaveHandler(this, dialog, form));
 
         form.setDeleteAllowed(false);
-        form.addDeleteActionListener(new ClickListener() {
+        form.addDeleteActionListener(new ClickHandler(this, dialog));
+    }
 
-            @Override
-            public void buttonClick(ClickEvent event) {
-                dialog.getParent().removeWindow(dialog);
-                model.remove();
-                // board.refresh();
-                board.sync();
-            }
-        });
+    private static final class CancelHandler implements ClickListener {
+        private static final long serialVersionUID = 1L;
+        private final Window dialog;
+
+        CancelHandler(Window dialog) {
+            this.dialog = dialog;
+        }
+
+        @Override
+        public void buttonClick(ClickEvent event) {
+            dialog.getParent().removeWindow(dialog);
+        }
+    }
+
+    private static final class ClickHandler implements ClickListener {
+        private static final long serialVersionUID = 1L;
+        private final KanbanCard card;
+        private final Window dialog;
+
+        ClickHandler(KanbanCard card, Window dialog) {
+            this.card = card;
+            this.dialog = dialog;
+        }
+
+        @Override
+        public void buttonClick(ClickEvent event) {
+            dialog.getParent().removeWindow(dialog);
+            card.model.remove();
+            card.board.sync();
+        }
+    }
+
+    private static final class SaveHandler implements ClickListener {
+        private static final long serialVersionUID = 1L;
+        private final KanbanCard card;
+        private final Window dialog;
+        private final EntityEditor form;
+
+        SaveHandler(KanbanCard card, Window dialog, EntityEditor form) {
+            this.card = card;
+            this.dialog = dialog;
+            this.form = form;
+        }
+
+        @Override
+        public void buttonClick(ClickEvent event) {
+            dialog.getParent().removeWindow(dialog);
+            form.commit();
+            card.model = card.model.merge();
+            card.removeStyleName("new");
+            card.board.sync();
+        }
     }
 }

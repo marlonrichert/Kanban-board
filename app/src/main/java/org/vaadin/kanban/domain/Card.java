@@ -16,6 +16,7 @@ import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 import org.vaadin.kanban.CardModel;
+import org.vaadin.kanban.ColumnModel;
 import org.vaadin.kanban.EntityEditor;
 import org.vaadin.kanban.web.crud.CardForm;
 
@@ -52,6 +53,12 @@ public class Card implements CardModel, Sortable {
     @Transient
     public StateColumn getColumn() {
         return getStateColumn();
+    }
+
+    @Override
+    @Transient
+    public void setColumn(ColumnModel column) {
+        setStateColumn((StateColumn) column);
     }
 
     @Override

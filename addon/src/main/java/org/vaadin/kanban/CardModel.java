@@ -25,6 +25,8 @@ public interface CardModel {
     /** Returns the column this card is in. */
     ColumnModel getColumn();
 
+    void setColumn(ColumnModel column);
+
     /** Returns a visual editor for this entity. */
     EntityEditor getEditor();
 

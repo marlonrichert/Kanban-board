@@ -9,4 +9,6 @@ public interface BoardModel {
      * should be displayed.
      */
     List<? extends ColumnModel> getColumns();
+
+    CardModel newCard(String description);
 }

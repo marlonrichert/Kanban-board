@@ -26,8 +26,8 @@
     
 }
 
-.board {
-/*     overflow: auto; */
+.board { /*     overflow: auto; */
+    
 }
 
 .v-gridlayout-board div {
@@ -48,6 +48,16 @@
 
 .card,.board .card {
     background-color: gold;
+}
+
+.card.new {
+    opacity: .5;
+    border-bottom: 1px solid black;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 .v-ddwrapper,.board .v-ddwrapper {
@@ -72,6 +82,10 @@
 
 .v-label.description {
     text-align: left;
+}
+
+.card.new .description {
+    text-align: center;
 }
 
 .v-label.owner {

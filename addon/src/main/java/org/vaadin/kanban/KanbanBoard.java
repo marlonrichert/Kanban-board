@@ -7,6 +7,7 @@ import java.util.WeakHashMap;
 import org.vaadin.artur.icepush.ICEPush;
 
 import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -48,27 +49,21 @@ public class KanbanBoard extends CustomComponent {
 
     private void refresh() {
         if (model == null || grid == null) {
-
-            System.out.println("model=" + model);
-            System.out.println("grid=" + grid);
-
             return;
         }
         List<? extends ColumnModel> columns = model.getColumns();
+        int size = columns.size();
 
         grid.removeAllComponents();
-        if (columns.size() < 1) {
-
-            System.out.println("columns.size()=" + columns.size());
-
+        if (size < 1) {
             return;
         }
-        grid.setColumns(columns.size());
+        grid.setColumns(size);
         grid.setRows(3);
         grid.setRowExpandRatio(0, 0);
         grid.setRowExpandRatio(1, 2);
         grid.setRowExpandRatio(2, 0);
-        for (int i = 0; i < columns.size(); i++) {
+        for (int i = 0; i < size; i++) {
             ColumnModel column = columns.get(i);
             Label name = new Label("<h2>" + column.getName() + "</h2>",
                     Label.CONTENT_XHTML);
@@ -97,7 +92,17 @@ public class KanbanBoard extends CustomComponent {
             int row = 0;
             grid.addComponent(header, i, row++);
 
-            if (i > 0 && i < columns.size() - 1) {
+            if (i == 0) {
+                CardModel cardModel = model.newCard("New card");
+                cardModel.setColumn(column);
+                KanbanCard newCard = new KanbanCard(this, cardModel);
+                newCard.addStyleName("new");
+                newCard.setDragStartMode(DragStartMode.NONE);
+                columnView.addComponent(newCard);
+                grid.addComponent(columnView, i, row++, i, row++);
+            } else if (i == size - 1) {
+                grid.addComponent(columnView, i, row++, i, row++);
+            } else {
                 grid.addComponent(columnView, i, row++);
 
                 Label dod = new Label("<h3>Definition of done</h3>"
@@ -107,8 +112,6 @@ public class KanbanBoard extends CustomComponent {
                 dod.setWidth(100, UNITS_PERCENTAGE);
 
                 grid.addComponent(dod, i, row++);
-            } else {
-                grid.addComponent(columnView, i, row, i, ++row);
             }
             grid.setColumnExpandRatio(i, 1);
         }
@@ -118,7 +121,7 @@ public class KanbanBoard extends CustomComponent {
         return model;
     }
 
-    void sync() {
+    public void sync() {
         for (KanbanBoard board : allBoards.keySet()) {
             synchronized (board.getApplication()) {
                 board.refresh();
