@@ -15,15 +15,15 @@ import com.vaadin.ui.VerticalLayout;
 public class KanbanBoard extends CustomComponent {
 
     private static final Map<KanbanBoard, ?> allBoards = new WeakHashMap<KanbanBoard, Object>();
-    private GridLayout grid;
-    private BoardModel model;
-    private ICEPush pusher;
+    private final GridLayout grid;
+    private final BoardModel model;
+    private final ICEPush pusher = new ICEPush();
 
     public KanbanBoard(BoardModel model) {
         this.model = model;
+        grid = new GridLayout();
         allBoards.put(this, null);
 
-        grid = new GridLayout();
         grid.setStyleName("board");
         grid.setImmediate(true);
 
@@ -38,7 +38,6 @@ public class KanbanBoard extends CustomComponent {
         root.setMargin(false);
         root.addComponent(grid);
         root.setExpandRatio(grid, 1);
-        pusher = new ICEPush();
         root.addComponent(pusher);
         setCompositionRoot(root);
         addStyleName("no-horizontal-drag-hints");

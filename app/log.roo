@@ -50,3 +50,5 @@ perform clean
 perform package
 perform package
 perform package
+perform package
+perform package
