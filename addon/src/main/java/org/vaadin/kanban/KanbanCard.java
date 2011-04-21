@@ -10,10 +10,11 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-public class KanbanCard extends DragAndDropWrapper implements
-        LayoutClickListener {
-    KanbanBoard board;
-    CardModel model;
+public class KanbanCard extends DragAndDropWrapper {
+    static final String NEW_CARD = "New card";
+    final KanbanBoard board;
+    boolean isNew = false;
+    final CardModel model;
 
     public KanbanCard(KanbanBoard board, CardModel model) {
         super(new VerticalLayout());
@@ -36,53 +37,74 @@ public class KanbanCard extends DragAndDropWrapper implements
         root.setMargin(true);
         root.setSpacing(true);
 
-        root.addListener(this);
+        root.addListener(new LayoutClickListener() {
+
+            @Override
+            public void layoutClick(LayoutClickEvent event) {
+                if (isNew) {
+                    KanbanCard.this.model.setDescription("");
+                }
+                VerticalLayout layout = new VerticalLayout();
+                Window dialog = new Window(isNew ? NEW_CARD : "Edit card",
+                        layout);
+                dialog.setModal(true);
+                dialog.setResizable(false);
+
+                layout.setMargin(false);
+                layout.setSpacing(false);
+                layout.setSizeUndefined();
+
+                final EntityEditor form = KanbanCard.this.model.getEditor();
+                form.setSizeUndefined();
+                layout.addComponent(form);
+                layout.setExpandRatio(form, 1.0f);
+
+                Window browserWindow = getWindow();
+                while (browserWindow.getParent() != null) {
+                    browserWindow = browserWindow.getParent();
+                }
+                browserWindow.addWindow(dialog);
+
+                form.addCancelActionListener(new CancelHandler(KanbanCard.this,
+                        dialog));
+
+                form.addSaveActionListener(new SaveHandler(KanbanCard.this,
+                        dialog, form));
+
+                form.setDeleteAllowed(false);
+                form.addDeleteActionListener(new ClickHandler(KanbanCard.this,
+                        dialog));
+            }
+        });
+    }
+
+    public KanbanCard(KanbanBoard board, ColumnModel column) {
+        this(board, board.getModel().newCard(NEW_CARD));
+        model.setColumn(column);
+        isNew = true;
+        addStyleName("new");
+        setDragStartMode(DragStartMode.NONE);
     }
 
     public CardModel getModel() {
         return model;
     }
 
-    @Override
-    public void layoutClick(LayoutClickEvent event) {
-        VerticalLayout layout = new VerticalLayout();
-        final Window dialog = new Window("Edit card", layout);
-        dialog.setModal(true);
-        dialog.setResizable(false);
-
-        layout.setMargin(false);
-        layout.setSpacing(false);
-        layout.setSizeUndefined();
-
-        final EntityEditor form = model.getEditor();
-        form.setSizeUndefined();
-        layout.addComponent(form);
-        layout.setExpandRatio(form, 1.0f);
-
-        Window browserWindow = getWindow();
-        while (browserWindow.getParent() != null) {
-            browserWindow = browserWindow.getParent();
-        }
-        browserWindow.addWindow(dialog);
-
-        form.addCancelActionListener(new CancelHandler(dialog));
-
-        form.addSaveActionListener(new SaveHandler(this, dialog, form));
-
-        form.setDeleteAllowed(false);
-        form.addDeleteActionListener(new ClickHandler(this, dialog));
-    }
-
     private static final class CancelHandler implements ClickListener {
         private static final long serialVersionUID = 1L;
+        private final KanbanCard card;
         private final Window dialog;
 
-        CancelHandler(Window dialog) {
+        CancelHandler(KanbanCard card, Window dialog) {
+            this.card = card;
             this.dialog = dialog;
         }
 
         @Override
         public void buttonClick(ClickEvent event) {
+            if (card.isNew) {
+                card.model.setDescription(NEW_CARD);
+            }
             dialog.getParent().removeWindow(dialog);
         }
     }
@@ -121,8 +143,13 @@ public class KanbanCard extends DragAndDropWrapper implements
         public void buttonClick(ClickEvent event) {
             dialog.getParent().removeWindow(dialog);
             form.commit();
-            card.model = card.model.merge();
-            card.removeStyleName("new");
+            if (card.isNew) {
+                card.model.getColumn().append(card.model);
+                card.removeStyleName("new");
+                card.isNew = false;
+            } else {
+                card.model.merge();
+            }
             card.board.sync();
         }
     }

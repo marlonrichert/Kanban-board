@@ -42,6 +42,7 @@ public class CardForm extends
         propertyIds.remove("startDate");
         propertyIds.remove("endDate");
         propertyIds.remove("sortOrder");
+        propertyIds.remove("stateColumn");
         return propertyIds;
     }
 }

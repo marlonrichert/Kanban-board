@@ -7,7 +7,6 @@ import java.util.WeakHashMap;
 import org.vaadin.artur.icepush.ICEPush;
 
 import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -93,12 +92,7 @@ public class KanbanBoard extends CustomComponent {
             grid.addComponent(header, i, row++);
 
             if (i == 0) {
-                CardModel cardModel = model.newCard("New card");
-                cardModel.setColumn(column);
-                KanbanCard newCard = new KanbanCard(this, cardModel);
-                newCard.addStyleName("new");
-                newCard.setDragStartMode(DragStartMode.NONE);
-                columnView.addComponent(newCard);
+                columnView.addComponent(new KanbanCard(this, column));
                 grid.addComponent(columnView, i, row++, i, row++);
             } else if (i == size - 1) {
                 grid.addComponent(columnView, i, row++, i, row++);
