@@ -41,3 +41,12 @@ perform clean
 perform package
 perform assembly
 perform assembly
+perform clean
+perform package
+perform assembly
+perform assembly
+perform assembly
+perform clean
+perform package
+perform package
+perform package

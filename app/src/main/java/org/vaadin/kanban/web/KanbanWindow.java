@@ -5,8 +5,8 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 public class KanbanWindow extends Window {
 
-    public KanbanWindow() {
-        super("Kanban board");
+    public KanbanWindow(String caption) {
+        super(caption);
 
         // entity manager
         KanbanEntityManagerView entityManagerView = new KanbanEntityManagerView();

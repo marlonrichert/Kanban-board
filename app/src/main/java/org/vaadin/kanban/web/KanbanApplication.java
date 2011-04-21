@@ -11,8 +11,8 @@ import com.vaadin.ui.Window.CloseListener;
 public class KanbanApplication extends Application {
     private static final long serialVersionUID = 1L;
 
-    public Window createNewWindow() {
-        final Window window = new KanbanWindow();
+    public Window createNewWindow(String caption) {
+        final Window window = new KanbanWindow(caption);
 
         // remove window on close to avoid memory leaks
         window.addListener(new CloseHandler(this, window));
@@ -29,7 +29,7 @@ public class KanbanApplication extends Application {
         // it does not exist yet, create it.
         if (window == null) {
             // Create the window object.
-            window = createNewWindow();
+            window = createNewWindow(name);
             window.setName(name);
 
             // Add it to the application as a regular
@@ -106,7 +106,8 @@ public class KanbanApplication extends Application {
             done.persist();
         }
 
-        Window window = createNewWindow();
+        Window window = createNewWindow(getContext().getBaseDirectory()
+                .getName());
         setMainWindow(window);
     }
 

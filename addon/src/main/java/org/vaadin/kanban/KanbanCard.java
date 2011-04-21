@@ -43,13 +43,13 @@ public class KanbanCard extends DragAndDropWrapper {
         if (startDate != null) {
             dateString += String.format("%tF", startDate);
             if (endDate != null) {
-                dateString += " Ð " + String.format("%tF", endDate);
+                dateString += " &ndash; " + String.format("%tF", endDate);
             }
         }
-        Label date = new Label(dateString);
+        Label date = new Label(dateString, Label.CONTENT_XHTML);
         date.setStyleName("date");
         date.setDescription("Start date"
-                + (endDate == null ? "" : " Ð end date"));
+                + (endDate == null ? "" : " &ndash; end date"));
 
         root.addComponent(date);
         root.addComponent(description);
