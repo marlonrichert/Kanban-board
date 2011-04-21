@@ -64,6 +64,8 @@ public class KanbanBoard extends CustomComponent {
         grid.setRowExpandRatio(2, 0);
         for (int i = 0; i < size; i++) {
             ColumnModel column = columns.get(i);
+            List<CardModel> cards = column.getCards();
+
             Label name = new Label("<h2>" + column.getName() + "</h2>",
                     Label.CONTENT_XHTML);
             name.setStyleName("header");
@@ -76,6 +78,11 @@ public class KanbanBoard extends CustomComponent {
             wip.setStyleName("wip");
             wip.setSizeUndefined();
             wip.setWidth(100, UNITS_PERCENTAGE);
+            if (cards.size() == column.getWorkInProgressLimit()) {
+                wip.addStyleName("maximum");
+            } else if (cards.size() > column.getWorkInProgressLimit()) {
+                wip.addStyleName("overflow");
+            }
 
             VerticalLayout header = new VerticalLayout();
             header.setSizeUndefined();
@@ -84,7 +91,7 @@ public class KanbanBoard extends CustomComponent {
             header.addComponent(wip);
 
             KanbanColumn columnView = new KanbanColumn(this, column);
-            for (CardModel card : column.getCards()) {
+            for (CardModel card : cards) {
                 columnView.addComponent(new KanbanCard(this, card));
             }
 

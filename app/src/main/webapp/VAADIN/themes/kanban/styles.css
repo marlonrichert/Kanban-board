@@ -34,6 +34,15 @@
     overflow: visible !important;
 }
 
+.board .wip.maximum,.board .wip.overflow {
+    font-size: 1.62em;
+}
+
+.board .wip.overflow {
+    font-weight: bolder;
+    color: red;
+}
+
 .board .column {
     overflow-x: hidden !important;
     overflow-y: auto !important;
