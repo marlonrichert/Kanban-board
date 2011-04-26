@@ -17,6 +17,9 @@ public interface ColumnModel {
 
     String getDefinitionOfDone();
 
+    /** Returns a visual editor for this entity. */
+    EntityEditor getEditor();
+
     String getName();
 
     int getSortOrder();
@@ -40,4 +43,8 @@ public interface ColumnModel {
     void setName(String name);
 
     void setWorkInProgressLimit(int workInProgressLimit);
+
+    void remove();
+
+    ColumnModel merge();
 }

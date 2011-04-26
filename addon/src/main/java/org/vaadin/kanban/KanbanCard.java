@@ -97,7 +97,7 @@ public class KanbanCard extends DragAndDropWrapper {
                         dialog, form));
 
                 form.setDeleteAllowed(false);
-                form.addDeleteActionListener(new ClickHandler(KanbanCard.this,
+                form.addDeleteActionListener(new DeleteHandler(KanbanCard.this,
                         dialog));
             }
         });
@@ -134,12 +134,12 @@ public class KanbanCard extends DragAndDropWrapper {
         }
     }
 
-    private static final class ClickHandler implements ClickListener {
+    private static final class DeleteHandler implements ClickListener {
         private static final long serialVersionUID = 1L;
         private final KanbanCard card;
         private final Window dialog;
 
-        ClickHandler(KanbanCard card, Window dialog) {
+        DeleteHandler(KanbanCard card, Window dialog) {
             this.card = card;
             this.dialog = dialog;
         }

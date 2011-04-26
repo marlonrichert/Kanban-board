@@ -15,6 +15,10 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 import org.vaadin.kanban.CardModel;
 import org.vaadin.kanban.ColumnModel;
+import org.vaadin.kanban.EntityEditor;
+import org.vaadin.kanban.web.crud.StateColumnForm;
+
+import com.vaadin.data.util.BeanItem;
 
 @RooJavaBean
 @RooToString
@@ -58,9 +62,9 @@ public class StateColumn implements ColumnModel, Sortable {
     @Transient
     public Card insert(CardModel cardModel, int index) {
         for (Card c : Card.findCardsByStateColumn(this).getResultList()) {
-            final int sortOrder = c.getSortOrder();
-            if (sortOrder >= index) {
-                c.setSortOrder(sortOrder + 1);
+            final int order = c.getSortOrder();
+            if (order >= index) {
+                c.setSortOrder(order + 1);
                 c.merge();
             }
         }
@@ -76,13 +80,21 @@ public class StateColumn implements ColumnModel, Sortable {
         Card card = (Card) cardModel;
         int index = card.getSortOrder();
         for (Card c : Card.findCardsByStateColumn(this).getResultList()) {
-            final int sortOrder = c.getSortOrder();
-            if (sortOrder > index) {
-                c.setSortOrder(sortOrder - 1);
+            final int order = c.getSortOrder();
+            if (order > index) {
+                c.setSortOrder(order - 1);
                 c.merge();
             }
         }
         card.setStateColumn(null);
         return card.merge();
+    }
+
+    @Override
+    @Transient
+    public EntityEditor getEditor() {
+        StateColumnForm form = new StateColumnForm();
+        form.setItemDataSource(new BeanItem<StateColumn>(this));
+        return form;
     }
 }

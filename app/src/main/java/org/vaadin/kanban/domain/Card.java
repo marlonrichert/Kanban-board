@@ -64,8 +64,8 @@ public class Card implements CardModel, Sortable {
     @Override
     @Transient
     public EntityEditor getEditor() {
-        CardForm cardForm = new CardForm();
-        cardForm.setItemDataSource(new BeanItem<Card>(this));
-        return cardForm;
+        CardForm form = new CardForm();
+        form.setItemDataSource(new BeanItem<Card>(this));
+        return form;
     }
 }

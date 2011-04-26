@@ -36,14 +36,9 @@ public class CardForm extends
         if (null == item) {
             return Collections.EMPTY_LIST;
         }
-        Collection<?> propertyIds = new ArrayList<Object>(
-                item.getItemPropertyIds());
-        propertyIds.remove("column");
-        propertyIds.remove("editor");
-        propertyIds.remove("startDate");
-        propertyIds.remove("endDate");
-        propertyIds.remove("sortOrder");
-        propertyIds.remove("stateColumn");
+        Collection<String> propertyIds = new ArrayList<String>();
+        propertyIds.add("description");
+        propertyIds.add("owner");
         return propertyIds;
     }
 }

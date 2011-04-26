@@ -52,3 +52,15 @@ perform package
 perform package
 perform package
 perform package
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-21 15:38:50
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-26 10:44:49
+perform clean
+perform package
+perform package
+perform clean
+perform package
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-26 13:08:56
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-26 13:10:11
+perform assembly
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-26 13:11:04
+perform assembly

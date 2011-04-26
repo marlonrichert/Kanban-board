@@ -9,6 +9,7 @@ import org.vaadin.kanban.web.AutomaticEntityForm;
 import com.vaadin.data.Item;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinAutomaticEntityForm;
 
+@SuppressWarnings("serial")
 @RooVaadinAutomaticEntityForm(formBackingObject = org.vaadin.kanban.domain.StateColumn.class)
 public class StateColumnForm extends
         AutomaticEntityForm<org.vaadin.kanban.domain.StateColumn> {
@@ -35,9 +36,10 @@ public class StateColumnForm extends
         if (null == item) {
             return Collections.EMPTY_LIST;
         }
-        Collection<?> propertyIds = new ArrayList<Object>(
-                item.getItemPropertyIds());
-        propertyIds.remove("cards");
+        Collection<String> propertyIds = new ArrayList<String>();
+        propertyIds.add("name");
+        propertyIds.add("workInProgressLimit");
+        propertyIds.add("definitionOfDone");
         return propertyIds;
     }
 

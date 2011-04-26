@@ -8,7 +8,6 @@ import org.vaadin.artur.icepush.ICEPush;
 
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
@@ -65,29 +64,8 @@ public class KanbanBoard extends CustomComponent {
             ColumnModel column = columns.get(i);
             List<CardModel> cards = column.getCards();
 
-            Label name = new Label("<h2>" + column.getName() + "</h2>",
-                    Label.CONTENT_XHTML);
-            name.setStyleName("header");
-            name.setSizeUndefined();
-            name.setWidth(100, UNITS_PERCENTAGE);
-
-            int wipLimit = column.getWorkInProgressLimit();
-            Label wip = new Label("" + (wipLimit > 0 ? wipLimit : ""),
-                    Label.CONTENT_XHTML);
-            wip.setStyleName("wip");
-            wip.setSizeUndefined();
-            wip.setWidth(100, UNITS_PERCENTAGE);
-            if (cards.size() == column.getWorkInProgressLimit()) {
-                wip.addStyleName("maximum");
-            } else if (cards.size() > column.getWorkInProgressLimit()) {
-                wip.addStyleName("overflow");
-            }
-
-            VerticalLayout header = new VerticalLayout();
-            header.setSizeUndefined();
-            header.setWidth(100, UNITS_PERCENTAGE);
-            header.addComponent(name);
-            header.addComponent(wip);
+            KanbanColumnHeader header = new KanbanColumnHeader(this, column,
+                    cards.size());
 
             KanbanColumn columnView = new KanbanColumn(this, column);
             for (CardModel card : cards) {
@@ -105,11 +83,7 @@ public class KanbanBoard extends CustomComponent {
             } else {
                 grid.addComponent(columnView, i, row++);
 
-                Label dod = new Label("<h3>Definition of done</h3>"
-                        + column.getDefinitionOfDone(), Label.CONTENT_XHTML);
-                dod.setStyleName("dod");
-                dod.setSizeUndefined();
-                dod.setWidth(100, UNITS_PERCENTAGE);
+                KanbanColumnDod dod = new KanbanColumnDod(column);
 
                 grid.addComponent(dod, i, row++);
             }
