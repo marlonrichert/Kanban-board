@@ -8,6 +8,9 @@
     <name>Kanban board add-on</name>
     <version>0.1.0.BUILD-SNAPSHOT</version>
     <description></description>
+    <properties>        
+        <vaadin.version>6.6-SNAPSHOT</vaadin.version>
+    </properties>
     <repositories>
         <repository>
             <id>vaadin-snapshots</id>
@@ -35,7 +38,7 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin</artifactId>
-            <version>6.5.4</version>
+            <version>${vaadin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.vaadin.addons</groupId>

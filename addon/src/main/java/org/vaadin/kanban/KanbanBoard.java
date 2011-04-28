@@ -6,14 +6,15 @@ import java.util.WeakHashMap;
 
 import org.vaadin.artur.icepush.ICEPush;
 
+import com.vaadin.Application;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
 public class KanbanBoard extends CustomComponent {
+    private static final Map<KanbanBoard, ?> ALL_BOARDS = new WeakHashMap<KanbanBoard, Object>();
 
-    private static final Map<KanbanBoard, ?> allBoards = new WeakHashMap<KanbanBoard, Object>();
     private final GridLayout grid;
     private final BoardModel model;
     private final ICEPush pusher = new ICEPush();
@@ -21,7 +22,7 @@ public class KanbanBoard extends CustomComponent {
     public KanbanBoard(BoardModel model) {
         this.model = model;
         grid = new GridLayout();
-        allBoards.put(this, null);
+        ALL_BOARDS.put(this, null);
 
         grid.setStyleName("board");
         grid.setImmediate(true);
@@ -96,8 +97,17 @@ public class KanbanBoard extends CustomComponent {
     }
 
     public void sync() {
-        for (KanbanBoard board : allBoards.keySet()) {
-            synchronized (board.getApplication()) {
+        for (KanbanBoard board : ALL_BOARDS.keySet()) {
+            Application application = board.getApplication();
+
+            if (application == null) {
+
+                System.out.println("application == null");
+
+                board.refresh();
+                continue;
+            }
+            synchronized (application) {
                 board.refresh();
                 board.pusher.push();
             }

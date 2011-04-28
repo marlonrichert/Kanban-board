@@ -8,6 +8,7 @@
     <version>0.1.0.BUILD-SNAPSHOT</version>
     <name>Kanban board web app</name>
     <properties>
+        <vaadin.version>6.6-SNAPSHOT</vaadin.version>
         <roo.version>1.1.2.RELEASE</roo.version>
         <spring.version>3.0.5.RELEASE</spring.version>
         <aspectj.version>1.6.11.M2</aspectj.version>
@@ -268,7 +269,7 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin</artifactId>
-            <version>6.5.4</version>
+            <version>${vaadin.version}</version>
         </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>

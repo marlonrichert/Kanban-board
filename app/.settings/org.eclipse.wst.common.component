@@ -3,8 +3,8 @@
     <wb-module deploy-name="Kanban-app">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <wb-resource deploy-path="/VAADIN/widgetsets" source-path="/target/kanban-app-0.1.0.BUILD-SNAPSHOT/VAADIN/widgetsets"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/Kanban-addon/Kanban-addon">
             <dependency-type>uses</dependency-type>
         </dependent-module>
