@@ -32,6 +32,7 @@ public class StateColumnView extends
         Collection<?> tableColumns = new ArrayList<Object>(Arrays.asList(super
                 .getTableColumns()));
         tableColumns.remove("cards");
+        tableColumns.remove("editor");
         return tableColumns.toArray();
     }
 }

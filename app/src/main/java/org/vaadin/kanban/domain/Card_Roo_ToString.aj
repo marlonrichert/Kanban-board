@@ -16,7 +16,8 @@ privileged aspect Card_Roo_ToString {
         sb.append("SortOrder: ").append(getSortOrder()).append(", ");
         sb.append("Owner: ").append(getOwner()).append(", ");
         sb.append("StartDate: ").append(getStartDate()).append(", ");
-        sb.append("EndDate: ").append(getEndDate());
+        sb.append("EndDate: ").append(getEndDate()).append(", ");
+        sb.append("Link: ").append(getLink());
         return sb.toString();
     }
     

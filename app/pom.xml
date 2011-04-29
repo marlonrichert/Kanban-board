@@ -2,13 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.vaadin.addons</groupId>
+    <groupId>org.vaadin.kanban</groupId>
     <artifactId>kanban-app</artifactId>
     <packaging>war</packaging>
     <version>0.1.0.BUILD-SNAPSHOT</version>
     <name>Kanban board web app</name>
     <properties>
-        <vaadin.version>6.6-SNAPSHOT</vaadin.version>
+        <vaadin.version>6.5.7</vaadin.version>
+        <gwt.version>2.1.1</gwt.version>
         <roo.version>1.1.2.RELEASE</roo.version>
         <spring.version>3.0.5.RELEASE</spring.version>
         <aspectj.version>1.6.11.M2</aspectj.version>
@@ -40,6 +41,14 @@
             <id>JBoss Repo</id>
             <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
             <name>JBoss Repo</name>
+        </repository>
+        <repository>
+            <id>google-maven-snapshot-repository</id>
+            <name>Google Maven Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/google-snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
         <repository>
             <id>vaadin-snapshots</id>
@@ -316,7 +325,7 @@
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
-            <version>2.1.1</version>
+            <version>${gwt.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -483,12 +492,12 @@
                     <dependency>
                         <groupId>com.google.gwt</groupId>
                         <artifactId>gwt-dev</artifactId>
-                        <version>2.1.1</version>
+                        <version>${gwt.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.google.gwt</groupId>
                         <artifactId>gwt-user</artifactId>
-                        <version>2.1.1</version>
+                        <version>${gwt.version}</version>
                     </dependency>
                 </dependencies>
                 <executions>

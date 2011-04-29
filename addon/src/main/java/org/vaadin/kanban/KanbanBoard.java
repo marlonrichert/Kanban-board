@@ -63,7 +63,7 @@ public class KanbanBoard extends CustomComponent {
         grid.setRowExpandRatio(2, 0);
         for (int i = 0; i < size; i++) {
             ColumnModel column = columns.get(i);
-            List<CardModel> cards = column.getCards();
+            List<CardModel> cards = column.findCards();
 
             KanbanColumnHeader header = new KanbanColumnHeader(this, column,
                     cards.size());
@@ -78,15 +78,13 @@ public class KanbanBoard extends CustomComponent {
 
             if (i == 0) {
                 columnView.addComponent(new KanbanCard(this, column));
-                grid.addComponent(columnView, i, row++, i, row++);
-            } else if (i == size - 1) {
+            }
+            if (column.getDefinitionOfDone() == null
+                    || column.getDefinitionOfDone().equals("")) {
                 grid.addComponent(columnView, i, row++, i, row++);
             } else {
                 grid.addComponent(columnView, i, row++);
-
-                KanbanColumnDod dod = new KanbanColumnDod(column);
-
-                grid.addComponent(dod, i, row++);
+                grid.addComponent(new KanbanColumnDod(column), i, row++);
             }
             grid.setColumnExpandRatio(i, 1);
         }

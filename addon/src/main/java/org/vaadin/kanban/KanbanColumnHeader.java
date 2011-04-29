@@ -1,5 +1,6 @@
 package org.vaadin.kanban;
 
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.Button.ClickEvent;
@@ -124,10 +125,15 @@ public class KanbanColumnHeader extends VerticalLayout {
 
         @Override
         public void buttonClick(ClickEvent event) {
-            dialog.getParent().removeWindow(dialog);
-            form.commit();
+            try {
+                form.commit();
+            } catch (InvalidValueException e) {
+                form.setCommitErrorMessage(e.getMessage());
+                return;
+            }
             column.model.merge();
             column.board.sync();
+            dialog.getParent().removeWindow(dialog);
         }
     }
 }

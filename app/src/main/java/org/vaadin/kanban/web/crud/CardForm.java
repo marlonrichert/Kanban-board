@@ -39,6 +39,7 @@ public class CardForm extends
         Collection<String> propertyIds = new ArrayList<String>();
         propertyIds.add("description");
         propertyIds.add("owner");
+        propertyIds.add("stateColumn");
         return propertyIds;
     }
 }

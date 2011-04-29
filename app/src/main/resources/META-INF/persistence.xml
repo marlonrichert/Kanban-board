@@ -10,7 +10,7 @@
             <!-- value="drop-and-create-tables" to build a new database on each run; 
                 value="create-tables" creates new tables if needed; value="none" makes no changes 
                 to the database -->
-            <property name="eclipselink.ddl-generation" value="none" />
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
             <property name="eclipselink.ddl-generation.output-mode"
                 value="database" />
             <property name="eclipselink.weaving" value="static" />

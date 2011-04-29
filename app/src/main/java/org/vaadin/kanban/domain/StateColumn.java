@@ -30,6 +30,7 @@ public class StateColumn implements ColumnModel, Sortable {
     @Size(min = 2)
     private String name;
 
+    @NotNull
     @Min(0L)
     private int workInProgressLimit = 0;
 
@@ -51,7 +52,7 @@ public class StateColumn implements ColumnModel, Sortable {
 
     @Override
     @Transient
-    public List<CardModel> getCards() {
+    public List<CardModel> findCards() {
         List<Card> list = new ArrayList<Card>();
         list.addAll(Card.findCardsByStateColumn(this).getResultList());
         Collections.sort(list, new SortOrderComparator());

@@ -13,7 +13,7 @@ public interface ColumnModel {
      * Returns a list of all cards in this column, in the order they should be
      * displayed.
      */
-    List<CardModel> getCards();
+    List<CardModel> findCards();
 
     String getDefinitionOfDone();
 
@@ -32,6 +32,10 @@ public interface ColumnModel {
      */
     CardModel insert(CardModel card, int index);
 
+    ColumnModel merge();
+
+    void remove();
+
     /**
      * Removes the given card from this column and returns a new representation
      * of it.
@@ -43,8 +47,4 @@ public interface ColumnModel {
     void setName(String name);
 
     void setWorkInProgressLimit(int workInProgressLimit);
-
-    void remove();
-
-    ColumnModel merge();
 }

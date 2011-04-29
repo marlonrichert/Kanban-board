@@ -1,6 +1,7 @@
 package org.vaadin.kanban;
 
 import com.vaadin.data.Item;
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
@@ -16,6 +17,10 @@ public interface EntityEditor extends Component {
 
     public void setDeleteAllowed(boolean enabled);
 
+    /**
+     * @throws InvalidValueException
+     *             in case the values do not validate
+     */
     public void commit();
 
     public void setItemDataSource(Item item);

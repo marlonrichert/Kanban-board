@@ -2,6 +2,7 @@ package org.vaadin.kanban;
 
 import java.util.Date;
 
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.Alignment;
@@ -23,44 +24,22 @@ public class KanbanCard extends DragAndDropWrapper {
         super(new VerticalLayout());
         this.board = board;
         this.model = model;
-        setDragStartMode(DragStartMode.WRAPPER);
-        setStyleName("card");
-        setSizeUndefined();
-        setWidth(100, UNITS_PERCENTAGE);
-
         VerticalLayout root = (VerticalLayout) getCompositionRoot();
+        Label owner = createOwnerLabel();
 
-        Label description = new Label(model.getDescription());
-        description.setStyleName("description");
-
-        String ownerString = model.getOwner();
-        Label owner = new Label(ownerString);
-        owner.setStyleName("owner");
-        owner.setDescription("Owner");
-        owner.setSizeUndefined();
-
-        Date startDate = model.getStartDate();
-        Date endDate = model.getEndDate();
-        String dateString = "";
-        if (startDate != null) {
-            dateString += String.format("%tF", startDate);
-            if (endDate != null) {
-                dateString += " &ndash; " + String.format("%tF", endDate);
-            }
-        }
-        Label date = new Label(dateString, Label.CONTENT_XHTML);
-        date.setStyleName("date");
-        date.setDescription("Start date"
-                + (endDate == null ? "" : " &ndash; end date"));
-
-        root.addComponent(date);
-        root.addComponent(description);
+        root.addComponent(createDateLabel());
+        root.addComponent(createDescriptionLabel());
         root.addComponent(owner);
         root.setComponentAlignment(owner, Alignment.MIDDLE_RIGHT);
 
         root.setSizeFull();
         root.setMargin(true);
         root.setSpacing(true);
+
+        setDragStartMode(DragStartMode.WRAPPER);
+        setStyleName("card");
+        setSizeUndefined();
+        setWidth(100, UNITS_PERCENTAGE);
 
         root.addListener(new LayoutClickListener() {
 
@@ -101,6 +80,38 @@ public class KanbanCard extends DragAndDropWrapper {
                         dialog));
             }
         });
+    }
+
+    private Label createOwnerLabel() {
+        String ownerString = model.getOwner();
+        Label owner = new Label(ownerString);
+        owner.setStyleName("owner");
+        owner.setDescription("Owner");
+        owner.setSizeUndefined();
+        return owner;
+    }
+
+    private Label createDescriptionLabel() {
+        Label description = new Label(model.getDescription());
+        description.setStyleName("description");
+        return description;
+    }
+
+    private Label createDateLabel() {
+        Date startDate = model.getStartDate();
+        Date endDate = model.getEndDate();
+        String dateString = "";
+        if (startDate != null) {
+            dateString += String.format("%tF", startDate);
+            if (endDate != null) {
+                dateString += " &ndash; " + String.format("%tF", endDate);
+            }
+        }
+        Label date = new Label(dateString, Label.CONTENT_XHTML);
+        date.setStyleName("date");
+        date.setDescription("Start date"
+                + (endDate == null ? "" : " &ndash; end date"));
+        return date;
     }
 
     public KanbanCard(KanbanBoard board, ColumnModel column) {
@@ -166,16 +177,21 @@ public class KanbanCard extends DragAndDropWrapper {
 
         @Override
         public void buttonClick(ClickEvent event) {
-            dialog.getParent().removeWindow(dialog);
-            form.commit();
+            try {
+                form.commit();
+            } catch (InvalidValueException e) {
+                form.setCommitErrorMessage(e.getMessage());
+                return;
+            }
             if (card.isNew) {
-                card.model.getColumn().append(card.model);
                 card.removeStyleName("new");
                 card.isNew = false;
+                card.model.getColumn().append(card.model);
             } else {
                 card.model.merge();
             }
             card.board.sync();
+            dialog.getParent().removeWindow(dialog);
         }
     }
 }

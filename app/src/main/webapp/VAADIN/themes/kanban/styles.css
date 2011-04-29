@@ -82,14 +82,10 @@
 }
 
 .v-label.date {
-    text-align: center;
+    text-align: right;
 }
 
 .v-label.description {
-    text-align: left;
-}
-
-.card.new .description {
     text-align: center;
 }
 

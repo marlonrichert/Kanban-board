@@ -57,4 +57,12 @@ privileged aspect Card_Roo_JavaBean {
         this.endDate = endDate;
     }
     
+    public String Card.getLink() {
+        return this.link;
+    }
+    
+    public void Card.setLink(String link) {
+        this.link = link;
+    }
+    
 }

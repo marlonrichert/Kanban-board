@@ -84,3 +84,28 @@ perform assembly
 perform package
 perform clean
 perform package
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-04-28 17:40:44
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-04-29 09:03:12
+perform package
+perform clean
+perform package
+perform package
+perform clean
+perform package
+perform clean
+perform assembly
+perform assembly
+perform assembly
+perform assembly
+perform package
+perform assembly
+perform package
+perform package
+perform package
+entity --class ~.domain.Card --testAutomatically
+entity --class ~.domain.Card --testAutomatically
+help project
+// [failed] entity --class ~.domain.Card --testAutomatically
+help finder
+finder list
+field string --fieldName link
